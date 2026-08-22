@@ -24,7 +24,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         error:
-          "HubSpot is not configured. Add portal and form IDs to .env.local, or email info@nbblgilbert.com.",
+          "HubSpot is not configured. Add portal and form IDs to .env.local, or email info@nobackboard.com.",
       },
       { status: 503 },
     );

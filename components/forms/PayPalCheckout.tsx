@@ -146,7 +146,7 @@ export default function PayPalCheckout({
     return (
       <p className="form-note form-note-warning">
         PayPal is not configured yet. Email{" "}
-        <a href="mailto:info@nbblgilbert.com">info@nbblgilbert.com</a> to complete
+        <a href="mailto:info@nobackboard.com">info@nobackboard.com</a> to complete
         your request.
       </p>
     );

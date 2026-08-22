@@ -166,7 +166,7 @@ export async function POST(request: Request) {
     }
   } else {
     hubspotWarning =
-      "Payment succeeded. HubSpot is not configured yet, so please email info@nbblgilbert.com with your PayPal confirmation.";
+      "Payment succeeded. HubSpot is not configured yet, so please email info@nobackboard.com with your PayPal confirmation.";
   }
 
   return NextResponse.json({

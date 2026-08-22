@@ -17,6 +17,33 @@ A mobile-first marketing site with on-page forms for:
 
 ## Recent Changes
 
+### Cinematic homepage redesign
+
+The homepage was rebuilt visually as a photography-led sports brand experience. Existing Next.js architecture, FormHub tabs, PayPal checkout, HubSpot APIs, catalog pricing, and environment variable names were preserved.
+
+Visual and UX updates:
+
+- Full-bleed UHoop photography for hero, SWISH, SPEED, SKILL, competition, fundraising, and creators
+- Mobile-first editorial rhythm: one idea per viewport, oversized condensed headlines, dark overlays
+- Team development leads with the $1,900 Four Session Evaluation; other school packages use progressive disclosure
+- Club training shown as a compact list instead of a pricing-card grid
+- Showcase economics presented as an equal 20% visual split
+- Facility photography shown as a swipe gallery on mobile and a mosaic on desktop
+- Performance capabilities labeled as a roadmap
+- Sticky mobile CTA is a single **Train Your Team →** control; it hides on the hero and over forms
+- Header simplified on mobile: NBBL mark, Train Your Team, hamburger menu
+
+### About and founder
+
+- Homepage **Why NBBL?** section introduces the founder, Mark Tee Armstrong, without a long biography
+- Founder portrait uses a square frame so the photo is not cropped into a banner
+- **About** in the nav, footer, and **Learn About NBBL →** open [remixed.nobackboard.com](https://remixed.nobackboard.com/)
+- A dedicated `/about` route is not used
+
+### Contact email
+
+Site-wide contact email is [info@nobackboard.com](mailto:info@nobackboard.com), including footer, form fallback, PayPal notices, and HubSpot error copy.
+
 ### Next.js migration (from static HTML)
 
 The site was rebuilt from a single `index.html` static page into a Next.js App Router application:
@@ -45,18 +72,19 @@ Pricing cards can pre-select a package via query string, e.g. `/?package=school-
 
 ### Header navigation
 
-The main menu links to on-page sections:
+The main menu links to on-page sections, plus the NBBL About site:
 
 | Link | Target |
 |------|--------|
-| Train | `#train` |
-| Showcases | `#showcases` |
-| Difference | `#difference` |
-| Fundraising | `#fundraiser` |
-| The Gym | `#gym` |
-| Creators | `#creators` |
+| Train Your Team | `/#book` |
+| Showcases | `/#showcases` |
+| The NBBL Difference | `/#difference` |
+| Fundraising | `/#fundraiser` |
+| The Gym | `/#gym` |
+| Creators | `/#creators` |
+| About | [remixed.nobackboard.com](https://remixed.nobackboard.com/) |
 
-The **Fundraising** link scrolls to the "Your Next Fundraiser Could Be a No Backboard Basketball Game!" section.
+The header CTA and sticky bar also route to `/#book`.
 
 ## Tech Stack
 
@@ -113,7 +141,7 @@ Add these to `.env.local`:
 | `HUBSPOT_FORM_CREATOR` | Form GUID for creator access |
 | `HUBSPOT_FORM_FUNDRAISER` | Form GUID for fundraiser inquiries |
 
-Until these are configured, paid forms show a PayPal setup notice and inquiry forms return a configuration error. Email fallback: [info@nbblgilbert.com](mailto:info@nbblgilbert.com).
+Until these are configured, paid forms show a PayPal setup notice and inquiry forms return a configuration error. Email fallback: [info@nobackboard.com](mailto:info@nobackboard.com).
 
 ## HubSpot Setup
 
@@ -149,12 +177,13 @@ Prices are locked on the server in `lib/catalog.ts` — the browser cannot chang
 |---------|-----|-------------|
 | Hero | — | Opening date and primary CTAs |
 | Difference | `#difference` | "The Futsal of Basketball" positioning |
-| Train | `#train` | Team development sessions |
-| Pricing | `#pricing` | School and club training tiers |
+| Train | `#train` | Practice your system / scrimmage our system |
+| Pricing | `#pricing` | School evaluation, residencies, and club training |
 | Performance | — | Athlete tracking roadmap |
 | Showcases | `#showcases` | Club competition and PPV |
 | Fundraiser | `#fundraiser` | "Your Next Fundraiser" fundraising section |
 | The Gym | `#gym` | Facility details and photos |
+| Why NBBL | `#why` | Founder, origin, and link to remixed.nobackboard.com |
 | Creators | `#creators` | Media and content access |
 | Contact / Forms | `#contact` | Form hub with all four forms |
 
@@ -170,8 +199,12 @@ app/
   api/forms/inquiry/route.ts
 components/
   Header.tsx
+  Footer.tsx
   StickyCta.tsx
   FormHub.tsx
+  BleedImage.tsx
+  Reveal.tsx
+  TeamOffers.tsx
   forms/
     SessionForm.tsx
     ShowcaseForm.tsx
@@ -199,7 +232,7 @@ Set the same environment variables in your hosting provider.
 
 ## Contact
 
-- **Email:** [info@nbblgilbert.com](mailto:info@nbblgilbert.com)
+- **Email:** [info@nobackboard.com](mailto:info@nobackboard.com)
 - **Location:** Gilbert, Arizona
 
 ## License

@@ -1,6 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+
+const LINKS: Array<{ href: string; label: string; external?: boolean }> = [
+  { href: "/#book", label: "Train Your Team" },
+  { href: "/#showcases", label: "Showcases" },
+  { href: "/#difference", label: "The NBBL Difference" },
+  { href: "/#fundraiser", label: "Fundraising" },
+  { href: "/#gym", label: "The Gym" },
+  { href: "/#creators", label: "Creators" },
+  { href: "https://remixed.nobackboard.com/", label: "About", external: true },
+];
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -9,46 +21,70 @@ export default function Header() {
     setOpen(false);
   }
 
+  useEffect(() => {
+    document.body.classList.toggle("nav-open", open);
+    return () => document.body.classList.remove("nav-open");
+  }, [open]);
+
+  useEffect(() => {
+    function onKey(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setOpen(false);
+      }
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
   return (
     <header>
       <div className="shell nav">
-        <a className="brand" href="#top" aria-label="NBBL Gilbert home">
-          <img src="/assets/nbbl-logo.webp" alt="NBBL logo" />
-          <span>NBBL GILBERT</span>
-        </a>
+        <Link className="brand" href="/" aria-label="NBBL Gilbert home">
+          <Image
+            src="/assets/nbbl-logo.webp"
+            alt=""
+            width={40}
+            height={40}
+            priority
+          />
+          <span className="brand-text">NBBL</span>
+        </Link>
         <nav
+          id="site-menu"
           className={`navlinks${open ? " open" : ""}`}
           aria-label="Main navigation"
         >
-          <a href="#train" onClick={closeNav}>
-            Train
-          </a>
-          <a href="#showcases" onClick={closeNav}>
-            Showcases
-          </a>
-          <a href="#difference" onClick={closeNav}>
-            Difference
-          </a>
-          <a href="#fundraiser" onClick={closeNav}>
-            Fundraising
-          </a>
-          <a href="#gym" onClick={closeNav}>
-            The Gym
-          </a>
-          <a href="#creators" onClick={closeNav}>
-            Creators
-          </a>
+          {LINKS.map((link) =>
+            link.external ? (
+              <a
+                key={link.href}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={closeNav}
+              >
+                {link.label}
+              </a>
+            ) : (
+              <Link key={link.href} href={link.href} onClick={closeNav}>
+                {link.label}
+              </Link>
+            ),
+          )}
         </nav>
-        <a className="btn primary navcta" href="#book">
-          Book Your Team
-        </a>
+        <Link className="btn primary navcta" href="/#book">
+          Train Your Team
+        </Link>
         <button
-          className="menu"
-          aria-label="Open menu"
+          className={`menu${open ? " is-open" : ""}`}
+          type="button"
+          aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
+          aria-controls="site-menu"
           onClick={() => setOpen((current) => !current)}
         >
-          ☰
+          <span />
+          <span />
         </button>
       </div>
     </header>

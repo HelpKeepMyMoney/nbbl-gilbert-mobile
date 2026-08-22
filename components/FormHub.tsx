@@ -100,7 +100,7 @@ export default function FormHub() {
 
       <p className="form-fallback">
         Prefer email?{" "}
-        <a href="mailto:info@nbblgilbert.com">info@nbblgilbert.com</a>
+        <a href="mailto:info@nobackboard.com">info@nobackboard.com</a>
       </p>
     </div>
   );
