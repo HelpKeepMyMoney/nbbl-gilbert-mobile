@@ -29,6 +29,9 @@ export default function Header() {
           <a href="#difference" onClick={closeNav}>
             Difference
           </a>
+          <a href="#fundraiser" onClick={closeNav}>
+            Fundraising
+          </a>
           <a href="#gym" onClick={closeNav}>
             The Gym
           </a>

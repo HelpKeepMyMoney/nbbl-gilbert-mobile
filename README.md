@@ -43,6 +43,21 @@ Pricing cards can pre-select a package via query string, e.g. `/?package=school-
 
 `FormHub` syncs the active tab from the URL hash, scrolls to the form (not the section heading), and retries after hydration so Next.js does not leave the page at the top. `scroll-padding-top` accounts for the fixed header.
 
+### Header navigation
+
+The main menu links to on-page sections:
+
+| Link | Target |
+|------|--------|
+| Train | `#train` |
+| Showcases | `#showcases` |
+| Difference | `#difference` |
+| Fundraising | `#fundraiser` |
+| The Gym | `#gym` |
+| Creators | `#creators` |
+
+The **Fundraising** link scrolls to the "Your Next Fundraiser Could Be a No Backboard Basketball Game!" section.
+
 ## Tech Stack
 
 - Next.js (App Router) + TypeScript + React
@@ -138,7 +153,7 @@ Prices are locked on the server in `lib/catalog.ts` — the browser cannot chang
 | Pricing | `#pricing` | School and club training tiers |
 | Performance | — | Athlete tracking roadmap |
 | Showcases | `#showcases` | Club competition and PPV |
-| Fundraiser | `#fundraiser` | Revenue-split fundraising model |
+| Fundraiser | `#fundraiser` | "Your Next Fundraiser" fundraising section |
 | The Gym | `#gym` | Facility details and photos |
 | Creators | `#creators` | Media and content access |
 | Contact / Forms | `#contact` | Form hub with all four forms |
