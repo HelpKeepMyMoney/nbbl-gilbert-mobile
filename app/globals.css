@@ -177,18 +177,28 @@ textarea {
 }
 
 header {
+  --header-h: 64px;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 50;
-  background: rgba(7, 8, 12, 0.72);
-  backdrop-filter: blur(18px);
+  height: var(--header-h);
+  background: rgba(7, 8, 12, 0.78);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(18px);
+  z-index: -1;
+  pointer-events: none;
+}
+
 .nav {
-  height: 64px;
+  height: var(--header-h);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -221,13 +231,21 @@ header {
 .navlinks.open {
   display: flex;
   position: fixed;
-  inset: 64px 0 0 0;
-  padding: 28px 24px 40px;
+  top: var(--header-h);
+  left: 0;
+  right: 0;
+  bottom: auto;
+  width: 100vw;
+  height: calc(100dvh - var(--header-h));
+  max-height: calc(100dvh - var(--header-h));
+  padding: 28px 24px 48px;
   background: #07080c;
   flex-direction: column;
+  justify-content: flex-start;
   gap: 6px;
   overflow: auto;
-  z-index: 55;
+  z-index: 60;
+  box-sizing: border-box;
 }
 
 .navlinks.open a {
@@ -1153,8 +1171,8 @@ footer {
     padding: 110px 0;
   }
 
-  .nav {
-    height: 72px;
+  header {
+    --header-h: 72px;
   }
 
   .navcta {
@@ -1302,6 +1320,10 @@ footer {
   .navlinks.open {
     position: static;
     inset: auto;
+    top: auto;
+    width: auto;
+    height: auto;
+    max-height: none;
     padding: 0;
     background: none;
     flex-direction: row;

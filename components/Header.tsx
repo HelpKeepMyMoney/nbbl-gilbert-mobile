@@ -11,7 +11,7 @@ const LINKS: Array<{ href: string; label: string; external?: boolean }> = [
   { href: "/#fundraiser", label: "Fundraising" },
   { href: "/#gym", label: "The Gym" },
   { href: "/#creators", label: "Creators" },
-  { href: "https://remixed.nobackboard.com/", label: "About", external: true },
+  { href: "/#why", label: "About" },
 ];
 
 export default function Header() {

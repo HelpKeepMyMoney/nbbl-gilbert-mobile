@@ -12,13 +12,7 @@ export default function Footer() {
           <div className="footer-small">Gilbert, Arizona</div>
           <div className="footer-small">Opening September 1, 2026</div>
           <div className="footer-small footer-copy">
-            <a
-              href="https://remixed.nobackboard.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              About NBBL
-            </a>
+            <a href="/#why">About NBBL</a>
           </div>
           <div className="footer-small footer-copy">
             © 2026 No Backboard Basketball League
