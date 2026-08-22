@@ -1,6 +1,21 @@
 import type { Metadata, Viewport } from "next";
+import { Barlow_Condensed, Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-body",
+  display: "swap",
+});
+
+const barlowCondensed = Barlow_Condensed({
+  subsets: ["latin"],
+  weight: ["500", "600", "700", "800", "900"],
+  variable: "--font-display",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://nbblgilbert.com"),
@@ -55,16 +70,8 @@ export default function RootLayout({
   const hubspotPortalId = process.env.NEXT_PUBLIC_HUBSPOT_PORTAL_ID;
 
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body>
+    <html lang="en" className={`${inter.variable} ${barlowCondensed.variable}`}>
+      <body className={inter.className}>
         {children}
         {hubspotPortalId && !hubspotPortalId.startsWith("YOUR_") ? (
           <Script

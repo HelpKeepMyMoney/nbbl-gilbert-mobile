@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Footer() {
   return (
     <footer>
@@ -12,7 +14,7 @@ export default function Footer() {
           <div className="footer-small">Gilbert, Arizona</div>
           <div className="footer-small">Opening September 1, 2026</div>
           <div className="footer-small footer-copy">
-            <a href="/#why">About NBBL</a>
+            <Link href="/#why">About NBBL</Link>
           </div>
           <div className="footer-small footer-copy">
             © 2026 No Backboard Basketball League
