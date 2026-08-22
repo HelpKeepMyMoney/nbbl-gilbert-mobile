@@ -32,6 +32,7 @@
     .shell{width:min(var(--max),calc(100% - 32px));margin:auto}
     .display{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.015em;line-height:.88}
     .eyebrow{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#fff;opacity:.72}
+    .light .eyebrow,.yellow .eyebrow{color:#0b0c10;opacity:.65}
     .section{padding:82px 0;position:relative;overflow:hidden}
     .section.dark{background:#07080c}
     .section.light{background:#f3f4f6;color:#101219}
@@ -185,7 +186,7 @@
       <a href="#train">Train</a><a href="#showcases">Showcases</a><a href="#difference">Difference</a><a href="#gym">The Gym</a><a href="#creators">Creators</a>
     </nav>
     <a class="btn primary navcta" href="#pricing">Book Your Team</a>
-    <button class="menu" aria-label="Open menu" onclick="document.body.classList.toggle('nav-open')">☰</button>
+    <button class="menu" aria-label="Open menu">☰</button>
   </div>
 </header>
 
@@ -382,11 +383,25 @@
 
 <script>
   const menu = document.querySelector('.menu');
-  menu?.addEventListener('click', () => {
-    const nav = document.querySelector('.navlinks');
+  const nav = document.querySelector('.navlinks');
+
+  function closeNav() {
     if (!nav) return;
-    const open = nav.style.display === 'flex';
-    nav.style.display = open ? '' : 'flex';
+    nav.style.display = '';
+    nav.style.position = '';
+    nav.style.top = '';
+    nav.style.left = '';
+    nav.style.right = '';
+    nav.style.padding = '';
+    nav.style.background = '';
+    nav.style.border = '';
+    nav.style.borderRadius = '';
+    nav.style.flexDirection = '';
+  }
+
+  function openNav() {
+    if (!nav) return;
+    nav.style.display = 'flex';
     nav.style.position = 'absolute';
     nav.style.top = '68px';
     nav.style.left = '16px';
@@ -396,6 +411,15 @@
     nav.style.border = '1px solid rgba(255,255,255,.12)';
     nav.style.borderRadius = '18px';
     nav.style.flexDirection = 'column';
+  }
+
+  menu?.addEventListener('click', () => {
+    if (nav?.style.display === 'flex') closeNav();
+    else openNav();
+  });
+
+  nav?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', closeNav);
   });
 </script>
 </body>
