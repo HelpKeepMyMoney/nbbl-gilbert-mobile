@@ -9,6 +9,7 @@ export default function Footer() {
           <div className="footer-small">
             The first physical home of No Backboard Basketball.
           </div>
+          <div className="footer-small footer-copy">The futsal of basketball.</div>
         </div>
         <div className="footer-meta">
           <div className="footer-small">Gilbert, Arizona</div>

@@ -32,7 +32,6 @@ export default function HomePage() {
             src="/assets/hero.webp"
             alt="Athletes attacking the UHoop in No Backboard Basketball action"
             priority
-            objectPosition="48% 20%"
           />
           <div className="shell hero-copy">
             <div className="hero-mark">
@@ -44,7 +43,6 @@ export default function HomePage() {
                 className="hero-logo"
                 priority
               />
-              <span className="eyebrow">NBBL Gilbert</span>
             </div>
             <h1 className="display">
               The Home of
@@ -69,7 +67,14 @@ export default function HomePage() {
         </section>
 
         <section className="section intro" id="difference">
-          <div className="shell">
+          <div className="intro-visual" aria-hidden="true">
+            <BleedImage
+              src="/assets/finish.webp"
+              alt=""
+              sizes="(max-width: 1099px) 100vw, 50vw"
+            />
+          </div>
+          <div className="shell intro-copy">
             <Reveal>
               <h2 className="display split-title">
                 The Futsal of
@@ -77,14 +82,14 @@ export default function HomePage() {
                 Basketball.
               </h2>
             </Reveal>
-            <Reveal delay={80}>
+            <Reveal delay={90}>
               <p className="pillar-stack">
                 <span>Swish.</span>
                 <span className="accent">Speed.</span>
                 <span>Skill.</span>
               </p>
             </Reveal>
-            <Reveal delay={120}>
+            <Reveal delay={140}>
               <p className="lead intro-lead">
                 A more demanding basketball environment built to develop better
                 shooters, faster decision makers and more skilled basketball
@@ -97,12 +102,14 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="chapter" id="swish">
+        <section className="chapter chapter-swish" id="swish">
           <BleedImage
             src="/assets/finish.webp"
             alt="Player finishing at the 16 inch UHoop with no backboard"
-            objectPosition="48% 18%"
           />
+          <div className="chapter-watermark" aria-hidden="true">
+            16″
+          </div>
           <div className="shell chapter-copy">
             <Reveal>
               <h2 className="display chapter-title">Swish.</h2>
@@ -128,11 +135,10 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="chapter chapter-inverse" id="speed">
+        <section className="chapter chapter-speed" id="speed">
           <BleedImage
             src="/assets/game.webp"
             alt="Multiple players, a referee, and live UHoop action"
-            objectPosition="62% 30%"
           />
           <div className="shell chapter-copy">
             <Reveal>
@@ -148,9 +154,10 @@ export default function HomePage() {
                 attack.
               </p>
               <ul className="word-list">
-                <li>Faster transition</li>
-                <li>Faster communication</li>
-                <li>Faster reads</li>
+                <li>Live ball</li>
+                <li>No timeouts</li>
+                <li>Live substitutions</li>
+                <li>Immediate transition</li>
                 <li>Faster decisions</li>
               </ul>
               <p className="statement">
@@ -162,11 +169,10 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="chapter" id="skill">
+        <section className="chapter chapter-skill" id="skill">
           <BleedImage
             src="/assets/skill.webp"
             alt="High intensity finish at the UHoop under defensive pressure"
-            objectPosition="55% 22%"
           />
           <div className="shell chapter-copy">
             <Reveal>
@@ -174,12 +180,12 @@ export default function HomePage() {
               <p className="lead on-photo">
                 Apply basketball fundamentals under pressure.
               </p>
-              <ul className="word-row">
-                <li>Think</li>
-                <li>Communicate</li>
-                <li>Pass</li>
-                <li>Finish</li>
-                <li>Decide</li>
+              <ul className="verb-stack">
+                <li>Think.</li>
+                <li>Communicate.</li>
+                <li>Pass.</li>
+                <li>Finish.</li>
+                <li>Decide.</li>
               </ul>
               <p className="statement">
                 More problem solving.
@@ -218,31 +224,37 @@ export default function HomePage() {
               <BleedImage
                 src="/assets/speed.webp"
                 alt="Athlete shooting at the UHoop during a training sequence"
-                objectPosition="40% 20%"
-                sizes="(max-width: 900px) 92vw, 33vw"
+                sizes="100vw"
               />
+              <span className="system-index" aria-hidden="true">
+                01
+              </span>
               <span>Practice your system.</span>
             </li>
             <li>
               <BleedImage
                 src="/assets/competition.webp"
                 alt="Players competing in No Backboard Basketball"
-                objectPosition="48% 24%"
-                sizes="(max-width: 900px) 92vw, 33vw"
+                sizes="100vw"
               />
+              <span className="system-index" aria-hidden="true">
+                02
+              </span>
               <span>Scrimmage our system.</span>
             </li>
             <li>
               <BleedImage
                 src="/assets/attack.webp"
                 alt="Player attacking the UHoop at the peak of a finish"
-                objectPosition="50% 18%"
-                sizes="(max-width: 900px) 92vw, 33vw"
+                sizes="100vw"
               />
+              <span className="system-index" aria-hidden="true">
+                03
+              </span>
               <span>Take the benefits back to your game.</span>
             </li>
           </ol>
-          <div className="shell">
+          <div className="shell system-cta">
             <a className="btn primary" href="#book">
               Book Team Development →
             </a>
@@ -306,9 +318,8 @@ export default function HomePage() {
 
         <section className="chapter measure-chapter">
           <BleedImage
-            src="/assets/production.jpg"
-            alt="NBBL production area with capture and broadcast equipment"
-            objectPosition="center 40%"
+            src="/assets/speed.webp"
+            alt="Athlete competing at the UHoop in a measurable development environment"
           />
           <div className="shell chapter-copy">
             <Reveal>
@@ -341,11 +352,10 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="chapter" id="showcases">
+        <section className="chapter chapter-compete" id="showcases">
           <BleedImage
             src="/assets/showcase.webp"
             alt="Club showcase action with referees and the UHoop"
-            objectPosition="58% 28%"
           />
           <div className="shell chapter-copy">
             <Reveal>
@@ -421,30 +431,48 @@ export default function HomePage() {
         </section>
 
         <section className="section audience">
-          <div className="shell">
-            <Reveal>
-              <h2 className="display section-title">
-                Play the Game.
-                <br />
-                Build the Audience.
-                <br />
-                Share the Value.
-              </h2>
-              <p className="lead">
-                Participating clubs can promote the NBBL Showcase livestream to
-                their own communities. The club is helping create the audience
-                around the event.
-              </p>
-              <ul className="audience-list">
-                <li>Parents</li>
-                <li>Grandparents</li>
-                <li>Family</li>
-                <li>Friends</li>
-                <li>Alumni</li>
-                <li>Supporters</li>
-                <li>Social followers</li>
-              </ul>
-            </Reveal>
+          <div className="audience-layout">
+            <div className="shell audience-copy">
+              <Reveal>
+                <h2 className="display section-title">
+                  Play the Game.
+                  <br />
+                  Build the Audience.
+                  <br />
+                  Share the Value.
+                </h2>
+                <p className="lead">
+                  Participating clubs can promote the NBBL Showcase livestream to
+                  their own communities. The club is helping create the audience
+                  around the event.
+                </p>
+                <ul className="media-stack">
+                  <li>Livestream</li>
+                  <li>PPV</li>
+                  <li>Social media</li>
+                  <li>Community</li>
+                  <li>Family</li>
+                  <li>Supporters</li>
+                </ul>
+                <ul className="audience-list">
+                  <li>Parents</li>
+                  <li>Grandparents</li>
+                  <li>Family</li>
+                  <li>Friends</li>
+                  <li>Alumni</li>
+                  <li>Supporters</li>
+                  <li>Social followers</li>
+                </ul>
+              </Reveal>
+            </div>
+            <figure className="audience-visual">
+              <BleedImage
+                src="/assets/production.jpg"
+                alt="NBBL production area connecting the court to an audience beyond the gym"
+                objectPosition="center 40%"
+                sizes="(max-width: 900px) 100vw, 46vw"
+              />
+            </figure>
           </div>
         </section>
 
@@ -452,7 +480,6 @@ export default function HomePage() {
           <BleedImage
             src="/assets/swish.webp"
             alt="Competitive No Backboard Basketball action at the UHoop"
-            objectPosition="60% 20%"
           />
           <div className="shell chapter-copy">
             <Reveal>
@@ -493,6 +520,24 @@ export default function HomePage() {
                 it creates.
               </h2>
             </Reveal>
+            <ol className="econ-flow">
+              <li>
+                <span>01</span>
+                Event
+              </li>
+              <li>
+                <span>02</span>
+                Audience
+              </li>
+              <li>
+                <span>03</span>
+                Value
+              </li>
+              <li>
+                <span>04</span>
+                Shared participation
+              </li>
+            </ol>
             <div
               className="split-visual"
               role="img"
@@ -534,32 +579,40 @@ export default function HomePage() {
             </Reveal>
           </div>
           <div className="gym-gallery" role="region" aria-label="Facility photography">
-            <figure className="gym-shot gym-shot-wide">
+            <figure className="gym-shot">
               <BleedImage
                 src="/assets/gym-exterior.jpg"
                 alt="Exterior of the NBBL Gilbert facility"
-                objectPosition="center 60%"
+                objectPosition="center 62%"
                 sizes="(max-width: 800px) 88vw, 40vw"
               />
-              <figcaption>The building</figcaption>
+              <figcaption>Exterior</figcaption>
             </figure>
             <figure className="gym-shot gym-shot-main">
+              <BleedImage
+                src="/assets/gym-court.jpg"
+                alt="Full high school court inside NBBL Gilbert"
+                objectPosition="center 50%"
+                sizes="(max-width: 800px) 88vw, 50vw"
+              />
+              <figcaption>Court</figcaption>
+            </figure>
+            <figure className="gym-shot">
+              <BleedImage
+                src="/assets/finish.webp"
+                alt="The 16 inch UHoop inside the NBBL Gilbert gym"
+                sizes="(max-width: 800px) 88vw, 40vw"
+              />
+              <figcaption>UHoop</figcaption>
+            </figure>
+            <figure className="gym-shot gym-shot-wide">
               <BleedImage
                 src="/assets/gym-wide.jpg"
                 alt="Wide view of the NBBL Gilbert gym, stage, and bleachers"
                 objectPosition="center 55%"
                 sizes="(max-width: 800px) 88vw, 50vw"
               />
-              <figcaption>Full court, stage, bleachers</figcaption>
-            </figure>
-            <figure className="gym-shot">
-              <BleedImage
-                src="/assets/gym-court.jpg"
-                alt="Full high school court inside NBBL Gilbert"
-                objectPosition="center 50%"
-                sizes="(max-width: 800px) 88vw, 33vw"
-              />
-              <figcaption>Full high school court</figcaption>
+              <figcaption>Bleachers and stage</figcaption>
             </figure>
             <figure className="gym-shot">
               <BleedImage
@@ -568,18 +621,18 @@ export default function HomePage() {
                 objectPosition="center 40%"
                 sizes="(max-width: 800px) 88vw, 33vw"
               />
-              <figcaption>Production Bird&apos;s Nest</figcaption>
+              <figcaption>Production area</figcaption>
             </figure>
           </div>
           <div className="shell">
             <ul className="gym-info">
-              <li>Full high school court</li>
+              <li>Exterior</li>
+              <li>Court</li>
               <li>UHoop</li>
               <li>Bleachers</li>
               <li>Stage</li>
-              <li>Production Bird&apos;s Nest</li>
-              <li>Conference room and classroom</li>
-              <li>Filming and event space</li>
+              <li>Production area</li>
+              <li>Classroom</li>
             </ul>
           </div>
         </section>
@@ -605,7 +658,7 @@ export default function HomePage() {
                 <BleedImage
                   src="/assets/mark-armstrong.webp"
                   alt="Mark Tee Armstrong, founder of the No Backboard Basketball League"
-                  objectPosition="center center"
+                  objectPosition="center 18%"
                   sizes="(max-width: 800px) 100vw, 36vw"
                 />
               </div>
@@ -645,11 +698,10 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="chapter" id="creators">
+        <section className="chapter chapter-creators" id="creators">
           <BleedImage
             src="/assets/attack.webp"
             alt="NBBL athlete attacking the UHoop, a basketball-first content environment"
-            objectPosition="48% 16%"
           />
           <div className="shell chapter-copy">
             <Reveal>
@@ -685,7 +737,7 @@ export default function HomePage() {
         </section>
 
         <section className="section final" id="contact">
-          <div className="shell">
+          <div className="shell final-close">
             <Reveal>
               <h2 className="display">Start with your team.</h2>
               <p className="lead centered-lead">
@@ -711,7 +763,13 @@ export default function HomePage() {
                 </a>
               </div>
             </Reveal>
-            <FormHub />
+          </div>
+
+          <div className="form-wrap">
+            <div className="shell">
+              <h2 className="display form-heading">Ready to get started?</h2>
+              <FormHub />
+            </div>
           </div>
         </section>
       </main>

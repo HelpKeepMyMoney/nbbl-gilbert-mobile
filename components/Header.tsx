@@ -71,9 +71,10 @@ export default function Header() {
               </Link>
             ),
           )}
+          <p className="nav-meta">Gilbert, Arizona · Opening 2026</p>
         </nav>
         <Link className="btn primary navcta" href="/#book">
-          Train Your Team
+          Book Your Team →
         </Link>
         <button
           className={`menu${open ? " is-open" : ""}`}
