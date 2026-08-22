@@ -435,7 +435,7 @@ header::before {
 
 .measure-chapter .bleed-media,
 .system-flow li:nth-child(1) .bleed-media {
-  --object-position: 62% 18%;
+  --object-position: 88% 42%;
 }
 
 .chapter-compete .bleed-media {
@@ -1417,45 +1417,53 @@ footer {
   }
 }
 
-@media (max-width: 430px) {
+@media (max-width: 699px) {
+  .hero .bleed-media img,
+  .chapter .bleed-media img,
+  .chapter-speed .bleed-media img,
+  .system-flow .bleed-media img {
+    animation: none;
+    transform: none;
+  }
+
   .hero .bleed-media {
-    --object-position: 62% 0%;
+    --object-position: 70% 0%;
   }
 
   .intro-visual .bleed-media,
   .chapter-swish .bleed-media,
   .gym-shot:nth-child(3) .bleed-media {
-    --object-position: 28% 6%;
+    --object-position: 0% 8%;
   }
 
   .chapter-speed .bleed-media {
-    --object-position: 26% 10%;
+    --object-position: 0% 12%;
   }
 
   .chapter-skill .bleed-media {
-    --object-position: 12% 16%;
+    --object-position: 0% 16%;
   }
 
   .chapter-compete .bleed-media {
-    --object-position: 78% 2%;
+    --object-position: 100% 8%;
   }
 
   .chapter-fund .bleed-media {
-    --object-position: 88% 4%;
+    --object-position: 100% 8%;
   }
 
   .chapter-creators .bleed-media,
   .system-flow li:nth-child(3) .bleed-media {
-    --object-position: 16% 4%;
+    --object-position: 0% 6%;
   }
 
   .measure-chapter .bleed-media,
   .system-flow li:nth-child(1) .bleed-media {
-    --object-position: 64% 14%;
+    --object-position: 100% 42%;
   }
 
   .system-flow li:nth-child(2) .bleed-media {
-    --object-position: 76% 4%;
+    --object-position: 100% 12%;
   }
 }
 
@@ -1520,7 +1528,7 @@ footer {
 
   .measure-chapter .bleed-media,
   .system-flow li:nth-child(1) .bleed-media {
-    --object-position: 60% 14%;
+    --object-position: 82% 40%;
   }
 
   .system-flow li:nth-child(2) .bleed-media {
