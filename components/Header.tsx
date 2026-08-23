@@ -43,8 +43,8 @@ export default function Header() {
           <Image
             src="/assets/logo.png"
             alt=""
-            width={40}
-            height={40}
+            width={80}
+            height={80}
             className="brand-logo"
             priority
           />

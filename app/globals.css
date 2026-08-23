@@ -1500,6 +1500,7 @@ footer {
 
 @media (min-width: 700px) {
   html {
+    scroll-padding-top: 108px;
     scroll-padding-bottom: 0;
   }
 
@@ -1513,7 +1514,18 @@ footer {
 
   :root,
   header {
-    --header-h: 72px;
+    --header-h: 96px;
+  }
+
+  .brand img,
+  .brand span:first-child {
+    width: 80px;
+    height: 80px;
+  }
+
+  .hero-logo {
+    width: 144px;
+    height: 144px;
   }
 
   .navcta {

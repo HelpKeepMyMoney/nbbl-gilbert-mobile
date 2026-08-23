@@ -38,8 +38,8 @@ export default function HomePage() {
               <Image
                 src="/assets/logo.png"
                 alt=""
-                width={72}
-                height={72}
+                width={144}
+                height={144}
                 className="hero-logo"
                 priority
               />
