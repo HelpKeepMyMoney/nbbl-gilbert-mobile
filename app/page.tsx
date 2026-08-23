@@ -36,10 +36,10 @@ export default function HomePage() {
           <div className="shell hero-copy">
             <div className="hero-mark">
               <Image
-                src="/assets/nbbl-logo.webp"
+                src="/assets/logo.png"
                 alt=""
-                width={46}
-                height={46}
+                width={72}
+                height={72}
                 className="hero-logo"
                 priority
               />
@@ -104,8 +104,8 @@ export default function HomePage() {
 
         <section className="chapter chapter-swish" id="swish">
           <BleedImage
-            src="/assets/finish.webp"
-            alt="Player finishing at the 16 inch UHoop with no backboard"
+            src="/assets/swish.png"
+            alt="Player shooting at the UHoop during live No Backboard Basketball action"
           />
           <div className="chapter-watermark" aria-hidden="true">
             16″
@@ -137,8 +137,8 @@ export default function HomePage() {
 
         <section className="chapter chapter-speed" id="speed">
           <BleedImage
-            src="/assets/game.webp"
-            alt="Multiple players, a referee, and live UHoop action"
+            src="/assets/speed.png"
+            alt="Athlete dribbling at speed in live No Backboard Basketball play"
           />
           <div className="shell chapter-copy">
             <Reveal>
@@ -641,7 +641,16 @@ export default function HomePage() {
           <div className="shell">
             <Reveal>
               <p className="eyebrow">About NBBL</p>
-              <h2 className="display section-title">Why NBBL?</h2>
+              <div className="why-heading">
+                <Image
+                  src="/assets/nbbl-logo.webp"
+                  alt=""
+                  width={72}
+                  height={72}
+                  className="why-logo"
+                />
+                <h2 className="display section-title">Why NBBL?</h2>
+              </div>
               <p className="chapter-kicker">A different game. A different vision.</p>
               <p className="lead">
                 NBBL was created to develop a different basketball environment

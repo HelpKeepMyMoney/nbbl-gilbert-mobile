@@ -104,6 +104,24 @@ textarea {
   margin: 10px 0 22px;
 }
 
+.why-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 10px 0 22px;
+}
+
+.why-heading .section-title {
+  margin: 0;
+}
+
+.why-logo {
+  width: clamp(40px, 9vw, 72px);
+  height: clamp(40px, 9vw, 72px);
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
 .lead {
   font-size: 18px;
   color: var(--muted);
@@ -229,10 +247,15 @@ header::before {
 
 .brand img,
 .brand span:first-child {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   object-fit: contain;
   flex-shrink: 0;
+}
+
+.brand-logo {
+  border-radius: 50%;
+  background: #000;
 }
 
 .navlinks {
@@ -416,13 +439,16 @@ header::before {
 }
 
 .intro-visual .bleed-media,
-.chapter-swish .bleed-media,
 .gym-shot:nth-child(3) .bleed-media {
   --object-position: 30% 8%;
 }
 
+.chapter-swish .bleed-media {
+  --object-position: 48% 38%;
+}
+
 .chapter-speed .bleed-media {
-  --object-position: 28% 12%;
+  --object-position: 78% 42%;
 }
 
 .chapter-speed .bleed-media img {
@@ -476,9 +502,11 @@ header::before {
 }
 
 .hero-logo {
-  width: 46px;
-  height: 46px;
+  width: 72px;
+  height: 72px;
   object-fit: contain;
+  border-radius: 50%;
+  background: #000;
 }
 
 .hero h1 {
@@ -1431,13 +1459,16 @@ footer {
   }
 
   .intro-visual .bleed-media,
-  .chapter-swish .bleed-media,
   .gym-shot:nth-child(3) .bleed-media {
     --object-position: 0% 8%;
   }
 
+  .chapter-swish .bleed-media {
+    --object-position: 50% 36%;
+  }
+
   .chapter-speed .bleed-media {
-    --object-position: 0% 12%;
+    --object-position: 82% 40%;
   }
 
   .chapter-skill .bleed-media {
@@ -1500,13 +1531,16 @@ footer {
   }
 
   .intro-visual .bleed-media,
-  .chapter-swish .bleed-media,
   .gym-shot:nth-child(3) .bleed-media {
     --object-position: 30% 6%;
   }
 
+  .chapter-swish .bleed-media {
+    --object-position: 46% 36%;
+  }
+
   .chapter-speed .bleed-media {
-    --object-position: 30% 10%;
+    --object-position: 76% 40%;
   }
 
   .chapter-skill .bleed-media {
@@ -1789,13 +1823,16 @@ footer {
     --object-position: 54% 0%;
   }
 
-  .chapter-swish .bleed-media,
   .gym-shot:nth-child(3) .bleed-media {
     --object-position: 30% 6%;
   }
 
+  .chapter-swish .bleed-media {
+    --object-position: 48% 34%;
+  }
+
   .chapter-speed .bleed-media {
-    --object-position: 32% 10%;
+    --object-position: 74% 38%;
   }
 
   .chapter-skill .bleed-media {

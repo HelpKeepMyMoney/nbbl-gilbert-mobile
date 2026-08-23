@@ -41,10 +41,11 @@ export default function Header() {
       <div className="shell nav">
         <Link className="brand" href="/" aria-label="NBBL Gilbert home">
           <Image
-            src="/assets/nbbl-logo.webp"
+            src="/assets/logo.png"
             alt=""
             width={40}
             height={40}
+            className="brand-logo"
             priority
           />
           <span className="brand-text">NBBL</span>
