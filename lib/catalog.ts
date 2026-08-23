@@ -9,19 +9,19 @@ export const SESSION_PACKAGES: SessionPackage[] = [
   {
     id: "school-eval",
     name: "Four Session Development Evaluation",
-    priceCents: 190_000,
+    priceCents: 170_000,
     category: "school",
   },
   {
     id: "school-weekly",
     name: "12 Week Weekly Residency",
-    priceCents: 510_000,
+    priceCents: 480_000,
     category: "school",
   },
   {
     id: "school-twice-weekly",
     name: "12 Week Twice Weekly Residency",
-    priceCents: 1_020_000,
+    priceCents: 960_000,
     category: "school",
   },
   {
@@ -39,7 +39,7 @@ export const SESSION_PACKAGES: SessionPackage[] = [
   {
     id: "club-4-session",
     name: "Four Session Development Cycle",
-    priceCents: 190_000,
+    priceCents: 170_000,
     category: "club",
   },
 ];

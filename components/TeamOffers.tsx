@@ -20,7 +20,7 @@ export default function TeamOffers() {
           <li>Performance tracking included</li>
         </ul>
         <div className="offer-price">
-          $1,900
+          $1,700
         </div>
         <a className="btn primary" href={bookHref("school-eval")}>
           Start Your Evaluation →
@@ -47,14 +47,14 @@ export default function TeamOffers() {
             <h3>12 Week Weekly Residency</h3>
             <p>12 two-hour sessions. One session per week.</p>
           </div>
-          <strong>$5,100</strong>
+          <strong>$4,800</strong>
         </a>
         <a className="offer-row" href={bookHref("school-twice-weekly")}>
           <div>
             <h3>12 Week Twice Weekly Residency</h3>
             <p>24 two-hour sessions. Two sessions per week.</p>
           </div>
-          <strong>$10,200</strong>
+          <strong>$9,600</strong>
         </a>
       </div>
     </div>

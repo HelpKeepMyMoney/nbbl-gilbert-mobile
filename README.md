@@ -41,7 +41,7 @@ Visual and UX updates:
   - Speed uses live-ball language and horizontal image drift
   - Skill stacks Think / Communicate / Pass / Finish / Decide
 - **Practice your system / Scrimmage our system** is a vertical `01 → 02 → 03` training sequence, not a three-column feature row
-- Team development still leads with the **$1,900 Four Session Development Evaluation**; other school packages stay behind progressive disclosure
+- Team development still leads with the **$1,700 Four Session Development Evaluation**; other school packages stay behind progressive disclosure
 - **Measure the work** is framed as sports performance technology, not a SaaS dashboard
 - Competition, audience, and fundraising chapters use full-bleed photography and larger statements
 - Showcase economics now reads **Event → Audience → Value → Shared participation**, then the equal 20% split as one band
@@ -111,12 +111,12 @@ Do not change these values in copy or in `lib/catalog.ts` without an explicit bu
 
 | Product | Price |
 |---------|-------|
-| Four Session Development Evaluation | $1,900 |
-| 12 Week Weekly Residency | $5,100 |
-| 12 Week Twice Weekly Residency | $10,200 |
+| Four Session Development Evaluation | $1,700 |
+| 12 Week Weekly Residency | $4,800 |
+| 12 Week Twice Weekly Residency | $9,600 |
 | Two Hour Team Session | $560 |
 | Two Session Development Cycle | $1,000 |
-| Four Session Development Cycle | $1,900 |
+| Four Session Development Cycle | $1,700 |
 | Club Team Showcase entry | $360 per club |
 | PPV | $9.99 |
 
