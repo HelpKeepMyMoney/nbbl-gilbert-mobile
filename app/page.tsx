@@ -33,17 +33,20 @@ export default function HomePage() {
             alt="Athletes attacking the UHoop in No Backboard Basketball action"
             priority
           />
+          <div className="shell hero-top">
+            <Image
+              src="/assets/logo.png"
+              alt=""
+              width={144}
+              height={144}
+              className="hero-logo"
+              priority
+            />
+            <p className="hero-banner">
+              <span>World&apos;s First Dedicated No Backboard Basketball Gym</span>
+            </p>
+          </div>
           <div className="shell hero-copy">
-            <div className="hero-mark">
-              <Image
-                src="/assets/logo.png"
-                alt=""
-                width={144}
-                height={144}
-                className="hero-logo"
-                priority
-              />
-            </div>
             <h1 className="display">
               The Home of
               <br />
