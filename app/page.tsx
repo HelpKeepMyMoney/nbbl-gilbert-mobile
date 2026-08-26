@@ -54,6 +54,9 @@ export default function HomePage() {
               <br />
               Basketball
             </h1>
+            <p className="hero-tagline">
+              Your coach. Your system. Two hours. Measured work.
+            </p>
             <div className="hero-meta">
               <div className="location">Gilbert, Arizona</div>
               <div className="opening">Opening September 1, 2026</div>

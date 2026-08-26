@@ -548,8 +548,18 @@ header::before {
 
 .hero h1 {
   font-size: clamp(52px, 14vw, 168px);
-  margin: 8px 0 18px;
+  margin: 8px 0 12px;
   animation: rise 1s ease 0.06s both;
+}
+
+.hero-tagline {
+  margin: 0 0 18px;
+  color: #fff;
+  font-size: clamp(16px, 2.6vw, 22px);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  opacity: 0.92;
+  animation: rise 1s ease 0.12s both;
 }
 
 .hero-meta {
@@ -1947,6 +1957,7 @@ footer {
   .hero-copy,
   .hero-actions,
   .hero h1,
+  .hero-tagline,
   .reveal,
   .bleed-media img,
   .hero .bleed-media img,
