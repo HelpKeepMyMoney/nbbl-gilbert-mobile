@@ -153,6 +153,8 @@ async function submitPaidLead({
   hutk?: string;
   pageUri?: string;
 }): Promise<string | undefined> {
+  const notes = getOptionalStringField(fields, "notes");
+
   const hubspotFields = toHubSpotFields({
     firstname: getStringField(fields, "coachName"),
     email: getStringField(fields, "email"),
@@ -167,8 +169,7 @@ async function submitPaidLead({
     athlete_count: getStringField(fields, "athleteCount"),
     preferred_start: getOptionalStringField(fields, "preferredStart"),
     preferred_dates: getOptionalStringField(fields, "preferredDates"),
-    notes: getOptionalStringField(fields, "notes"),
-    payment_status: "pending_paypal",
+    message: notes,
     nbbl_segment: getNbblSegment(kind),
   });
 
