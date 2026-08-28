@@ -315,7 +315,7 @@ export default function HomePage() {
                     <h3>Four Session Development Cycle</h3>
                     <p>4 two-hour sessions.</p>
                   </div>
-                  <strong>$1,700</strong>
+                  <strong>$1,900</strong>
                 </a>
               </div>
             </div>

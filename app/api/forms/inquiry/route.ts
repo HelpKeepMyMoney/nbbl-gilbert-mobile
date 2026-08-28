@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
-import { isHubSpotConfigured, submitToHubSpot, toHubSpotFields } from "@/lib/hubspot";
+import {
+  getNbblSegment,
+  isHubSpotConfigured,
+  submitToHubSpot,
+  toHubSpotFields,
+} from "@/lib/hubspot";
 import {
   getOptionalStringField,
   getStringField,
@@ -71,6 +76,7 @@ export async function POST(request: Request) {
           content_type: getStringField(fields, "contentType"),
           project_description: getStringField(fields, "projectDescription"),
           preferred_dates: getOptionalStringField(fields, "preferredDates"),
+          nbbl_segment: getNbblSegment("creator"),
         })
       : toHubSpotFields({
           company: getStringField(fields, "organizationName"),
@@ -81,6 +87,7 @@ export async function POST(request: Request) {
           preferred_dates: getOptionalStringField(fields, "preferredDates"),
           referral_source: getOptionalStringField(fields, "referralSource"),
           notes: getOptionalStringField(fields, "notes"),
+          nbbl_segment: getNbblSegment("fundraiser"),
         });
 
   try {

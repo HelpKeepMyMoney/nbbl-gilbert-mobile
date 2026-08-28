@@ -32,6 +32,14 @@ const emptyFields: SessionFields = {
   notes: "",
 };
 
+function getHubSpotCookie(): string | undefined {
+  if (typeof document === "undefined") {
+    return undefined;
+  }
+  const match = document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]+)/);
+  return match?.[1];
+}
+
 export default function SessionForm({ initialPackageId }: SessionFormProps) {
   const [fields, setFields] = useState<SessionFields>({
     ...emptyFields,
@@ -40,6 +48,9 @@ export default function SessionForm({ initialPackageId }: SessionFormProps) {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [showPayment, setShowPayment] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [paymentUrl, setPaymentUrl] = useState<string | null>(null);
+  const [paymentWarning, setPaymentWarning] = useState<string | undefined>();
 
   useEffect(() => {
     if (initialPackageId) {
@@ -57,9 +68,11 @@ export default function SessionForm({ initialPackageId }: SessionFormProps) {
     setError(null);
     setSuccess(null);
     setShowPayment(false);
+    setPaymentUrl(null);
+    setPaymentWarning(undefined);
   }
 
-  function handleContinue(event: FormEvent) {
+  async function handleContinue(event: FormEvent) {
     event.preventDefault();
     setError(null);
     setSuccess(null);
@@ -76,7 +89,45 @@ export default function SessionForm({ initialPackageId }: SessionFormProps) {
       return;
     }
 
-    setShowPayment(true);
+    setSubmitting(true);
+
+    try {
+      const response = await fetch("/api/forms/paid-intent", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          kind: "session",
+          packageId: fields.packageId,
+          fields,
+          hutk: getHubSpotCookie(),
+        }),
+      });
+
+      const data = (await response.json()) as {
+        paymentUrl?: string;
+        warning?: string;
+        error?: string;
+      };
+
+      if (!response.ok || !data.paymentUrl) {
+        throw new Error(
+          data.error ??
+            "PayPal is not configured yet. Email info@nobackboard.com to complete your request.",
+        );
+      }
+
+      setPaymentUrl(data.paymentUrl);
+      setPaymentWarning(data.warning);
+      setShowPayment(true);
+    } catch (submitError) {
+      setError(
+        submitError instanceof Error
+          ? submitError.message
+          : "Unable to continue to payment.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   if (success) {
@@ -182,22 +233,16 @@ export default function SessionForm({ initialPackageId }: SessionFormProps) {
 
       {error ? <div className="form-message form-message-error">{error}</div> : null}
 
-      {!showPayment ? (
-        <button type="submit" className="btn primary">
-          Continue to payment
+      {!showPayment || !paymentUrl || !selectedPackage ? (
+        <button type="submit" className="btn primary" disabled={submitting}>
+          {submitting ? "Preparing payment…" : "Continue to payment"}
         </button>
       ) : (
         <PayPalCheckout
-          kind="session"
-          fields={fields}
-          packageId={fields.packageId}
-          onSuccess={(warning) => {
-            setSuccess(
-              warning ??
-                "Payment received. Your session purchase is confirmed and our team will follow up shortly.",
-            );
-          }}
-          onError={(message) => setError(message)}
+          paymentUrl={paymentUrl}
+          label={selectedPackage.name}
+          amountLabel={`$${(selectedPackage.priceCents / 100).toLocaleString()}`}
+          warning={paymentWarning}
         />
       )}
     </form>

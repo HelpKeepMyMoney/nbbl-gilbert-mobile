@@ -4,6 +4,18 @@ export type InquiryKind = "creator" | "fundraiser";
 export type PaidKind = "session" | "showcase";
 export type FormKind = InquiryKind | PaidKind;
 
+/** Values written to the HubSpot `nbbl_segment` contact property. */
+export const NBBL_SEGMENTS: Record<FormKind, string> = {
+  session: "Paid Training Sessions",
+  showcase: "Showcase Inquiries",
+  creator: "Content Creator Inquiries",
+  fundraiser: "Fundraiser Inquiries",
+};
+
+export function getNbblSegment(kind: FormKind): string {
+  return NBBL_SEGMENTS[kind];
+}
+
 function getFormGuid(kind: FormKind): string | undefined {
   switch (kind) {
     case "session":

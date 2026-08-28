@@ -3,7 +3,12 @@ import {
   getSessionPackage,
   SHOWCASE_PRODUCT,
 } from "@/lib/catalog";
-import { isHubSpotConfigured, submitToHubSpot, toHubSpotFields } from "@/lib/hubspot";
+import {
+  getNbblSegment,
+  isHubSpotConfigured,
+  submitToHubSpot,
+  toHubSpotFields,
+} from "@/lib/hubspot";
 import { capturePayPalOrder, isPayPalConfigured } from "@/lib/paypal";
 import {
   getOptionalStringField,
@@ -149,6 +154,7 @@ export async function POST(request: Request) {
     payment_status: "paid",
     paypal_order_id: capture.orderId,
     amount_paid: (capture.amountCents / 100).toFixed(2),
+    nbbl_segment: getNbblSegment(body.kind),
   });
 
   let hubspotWarning: string | undefined;

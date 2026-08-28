@@ -156,6 +156,12 @@ textarea {
   transform: translateY(-1px);
 }
 
+.btn:disabled {
+  opacity: 0.55;
+  cursor: wait;
+  transform: none;
+}
+
 .btn.primary {
   background: var(--red);
   color: #fff;
@@ -1432,6 +1438,26 @@ footer {
 
 .paypal-checkout {
   margin-top: 12px;
+  display: grid;
+  gap: 8px;
+}
+
+.paypal-checkout .btn {
+  justify-self: start;
+}
+
+.thanks-page {
+  min-height: 70vh;
+  padding: 140px 0 88px;
+}
+
+.thanks-page .lead {
+  max-width: 36rem;
+}
+
+.thanks-page .form-note a {
+  color: var(--yellow);
+  text-decoration: underline;
 }
 
 .reveal {

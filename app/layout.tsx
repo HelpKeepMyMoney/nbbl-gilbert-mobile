@@ -18,7 +18,7 @@ const barlowCondensed = Barlow_Condensed({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://nbblgilbert.com"),
+  metadataBase: new URL("https://nobackboardbasketballgym.com"),
   title: {
     default: "NBBL Gilbert | The Futsal of Basketball",
     template: "%s | NBBL Gilbert",
@@ -37,6 +37,7 @@ export const metadata: Metadata = {
     title: "NBBL Gilbert | The Futsal of Basketball",
     description:
       "The first physical home of No Backboard Basketball. Train your team in Gilbert, Arizona. Opening September 1, 2026.",
+    url: "https://nobackboardbasketballgym.com",
     type: "website",
     locale: "en_US",
     siteName: "NBBL Gilbert",
