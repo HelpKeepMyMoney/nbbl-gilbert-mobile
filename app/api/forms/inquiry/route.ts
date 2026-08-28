@@ -83,10 +83,22 @@ export async function POST(request: Request) {
           firstname: getStringField(fields, "contactName"),
           email: getStringField(fields, "email"),
           phone: getStringField(fields, "phone"),
-          expected_clubs: getOptionalStringField(fields, "expectedClubs"),
-          preferred_dates: getOptionalStringField(fields, "preferredDates"),
-          referral_source: getOptionalStringField(fields, "referralSource"),
-          notes: getOptionalStringField(fields, "notes"),
+          message: [
+            getOptionalStringField(fields, "expectedClubs")
+              ? `Expected participating clubs: ${getOptionalStringField(fields, "expectedClubs")}`
+              : "",
+            getOptionalStringField(fields, "preferredDates")
+              ? `Preferred date window: ${getOptionalStringField(fields, "preferredDates")}`
+              : "",
+            getOptionalStringField(fields, "referralSource")
+              ? `Referral source: ${getOptionalStringField(fields, "referralSource")}`
+              : "",
+            getOptionalStringField(fields, "notes")
+              ? `Notes: ${getOptionalStringField(fields, "notes")}`
+              : "",
+          ]
+            .filter(Boolean)
+            .join("\n"),
           nbbl_segment: getNbblSegment("fundraiser"),
         });
 
