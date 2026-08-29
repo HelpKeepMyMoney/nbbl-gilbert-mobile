@@ -26,6 +26,7 @@ export async function POST(request: Request) {
   }
 
   if (!isHubSpotConfigured(body.kind)) {
+    console.error("[NBBL HubSpot] Inquiry rejected: not configured", { kind: body.kind });
     return NextResponse.json(
       {
         error:
@@ -108,11 +109,12 @@ export async function POST(request: Request) {
       pageUri: request.headers.get("referer") ?? undefined,
       pageName: "NBBL Gilbert",
     });
-    return NextResponse.json({ success: true });
+    console.info("[NBBL HubSpot] Inquiry submission confirmed", { kind: body.kind });
+    return NextResponse.json({ success: true, hubspot: "submitted" });
   } catch (error) {
-    console.error("HubSpot inquiry submission failed:", error);
+    console.error("[NBBL HubSpot] Inquiry submission failed", error);
     return NextResponse.json(
-      { error: "Unable to submit your request right now. Please try again." },
+      { error: "Unable to submit your request right now. Please try again.", hubspot: "failed" },
       { status: 500 },
     );
   }
