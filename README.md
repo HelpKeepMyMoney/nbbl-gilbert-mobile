@@ -21,6 +21,27 @@ The site is designed as a sports magazine / performance brand / basketball media
 
 ## Recent Changes
 
+### HubSpot connection and segments
+
+The site is connected to NBBL’s HubSpot portal (`247117755`). Each website form posts to its own HubSpot form GUID so contacts land in named segments:
+
+| Website form | HubSpot segment |
+|--------------|-----------------|
+| Book Sessions | Paid Training Sessions |
+| Showcase | Showcase Inquiries |
+| Creator access | Content Creator Inquiries |
+| Fundraiser | Fundraiser Inquiries |
+
+Every submission writes `nbbl_segment` with that label. Active lists should filter on **form submission** so one contact can sit on more than one list. Portal ID and form GUIDs live in `.env.local` (`HUBSPOT_PORTAL_ID`, `NEXT_PUBLIC_HUBSPOT_PORTAL_ID`, `HUBSPOT_FORM_*`). Copy the same values into Vercel for production. Do not commit `.env.local`.
+
+Paid session and showcase notes map to HubSpot’s standard `message` property. Fundraiser extras (expected clubs, dates, referral, notes) are concatenated into `message`. Custom properties that are not on the HubSpot forms are not sent, so HubSpot does not reject the submission.
+
+Paid forms still record the lead in HubSpot **before** the visitor is sent to the PayPal payment link.
+
+### PayPal payment links
+
+All seven catalog products have PayPal Payment Links in `.env.local` (`NEXT_PUBLIC_PAYPAL_LINK_*`). **Continue to payment** opens the matching hosted PayPal checkout, then returns to `/thanks`. Set the same variables in Vercel. REST create/capture routes remain as an unused fallback.
+
 ### Visual polish and conversion pass
 
 The approved homepage architecture and business proposition were kept. This pass raised the visual language so the site feels like an established sports property.
@@ -71,8 +92,8 @@ The site was rebuilt from a single `index.html` static page into a Next.js App R
 
 - **Framework:** Next.js 15 + React 19 + TypeScript
 - **Forms:** Four tabbed forms in `FormHub` (sessions, showcase, creator, fundraiser)
-- **Payments:** PayPal Payment Links after form validation; HubSpot records `pending_paypal`
-- **CRM:** HubSpot form submissions via server-side API
+- **Payments:** PayPal Payment Links after form validation; HubSpot records the lead before checkout
+- **CRM:** HubSpot Forms API, one form GUID per segment (`nbbl_segment`)
 - **Assets:** Moved from `assets/` to `public/assets/`
 - **Removed:** `index.html` (replaced by `app/page.tsx`)
 
@@ -127,8 +148,8 @@ Showcase economics: **20% NBBL / 20% Club 1 / 20% Club 2 / 20% Club 3 / 20% Club
 ## Tech Stack
 
 - Next.js (App Router) + TypeScript + React
-- PayPal Checkout (server-side order create/capture)
-- HubSpot Forms API (server-side submission)
+- PayPal Payment Links (REST create/capture remains as unused fallback)
+- HubSpot Forms API (server-side submission, one form per segment)
 - Google Fonts (Barlow Condensed, Inter)
 - Static assets in `public/assets/`
 
@@ -186,7 +207,7 @@ Add these to `.env.local`:
 | `HUBSPOT_FORM_CREATOR` | Form GUID for creator access |
 | `HUBSPOT_FORM_FUNDRAISER` | Form GUID for fundraiser inquiries |
 
-Until these are configured, paid forms show a PayPal setup notice and inquiry forms return a configuration error. Email fallback: [info@nobackboard.com](mailto:info@nobackboard.com).
+Local `.env.local` already has the PayPal payment links and HubSpot portal/form IDs. Production still needs the same values in Vercel (or the host). Until a value is set, paid forms tell the visitor to email [info@nobackboard.com](mailto:info@nobackboard.com), and inquiry forms return a configuration error.
 
 ## HubSpot Setup
 
@@ -224,17 +245,13 @@ Use these **internal names** exactly. Create any that do not already exist.
 | `package` | Package | Single-line text | Sessions, showcase |
 | `athlete_count` | Athlete count | Single-line text | Sessions, showcase |
 | `preferred_start` | Preferred start | Single-line text | Sessions |
-| `preferred_dates` | Preferred dates | Single-line text | Showcase, creator, fundraiser |
-| `notes` | Notes | Multi-line text | Sessions, showcase, fundraiser |
+| `preferred_dates` | Preferred dates | Single-line text | Showcase, creator |
 | `content_type` | Content type | Single-line text | Creator |
 | `project_description` | Project description | Multi-line text | Creator |
-| `expected_clubs` | Expected clubs | Single-line text | Fundraiser |
-| `referral_source` | Referral source | Single-line text | Fundraiser |
-| `payment_status` | Payment status | Single-line text | Sessions, showcase (`pending_paypal` or `paid`) |
-| `paypal_order_id` | PayPal order ID | Single-line text | Paid capture (REST fallback) |
-| `amount_paid` | Amount paid | Single-line text | Paid capture (REST fallback) |
 
-Standard HubSpot fields already exist: `firstname`, `email`, `phone`, `company`.
+Standard HubSpot fields already exist and are used by the API: `firstname`, `email`, `phone`, `company`, `message`.
+
+Paid session/showcase notes and fundraiser extras are written to `message`, not custom `notes` / `expected_clubs` / `referral_source` fields. That matches the properties available on the live HubSpot forms.
 
 Every field the API sends **must also exist on that HubSpot form**, or HubSpot rejects the submission.
 
@@ -244,13 +261,13 @@ Every field the API sends **must also exist on that HubSpot form**, or HubSpot r
 
 Add the fields below to each form, including **NBBL Segment** as a hidden field.
 
-**NBBL Session Purchase** and **NBBL Showcase Registration:** `firstname`, `email`, `phone`, `program_name`, `organization_type`, `package`, `athlete_count`, `preferred_start` (sessions), `preferred_dates` (showcase), `notes`, `payment_status`, `paypal_order_id`, `amount_paid`, `nbbl_segment`.
+**NBBL Session Purchase** and **NBBL Showcase Registration:** `firstname`, `email`, `phone`, `program_name`, `organization_type`, `package`, `athlete_count`, `preferred_start` (sessions), `preferred_dates` (showcase), `message`, `nbbl_segment`.
 
 **NBBL Creator Access:** `firstname`, `email`, `phone`, `company`, `content_type`, `project_description`, `preferred_dates`, `nbbl_segment`.
 
-**NBBL Fundraiser Inquiry:** `firstname`, `email`, `phone`, `company`, `expected_clubs`, `preferred_dates`, `referral_source`, `notes`, `nbbl_segment`.
+**NBBL Fundraiser Inquiry:** `firstname`, `email`, `phone`, `company`, `message`, `nbbl_segment`.
 
-Copy each form GUID from the form editor URL or **Share → Embed** (`formId`). Paste into the matching `HUBSPOT_FORM_*` env var.
+The four form GUIDs for portal `247117755` are already in local `.env.local`. Copy them into Vercel for production. To rotate a form, copy the new GUID from the form editor URL or **Share → Embed** (`formId`) into the matching `HUBSPOT_FORM_*` env var.
 
 ### 4. Create segments (active lists)
 
@@ -269,9 +286,9 @@ Optional extra filter: `nbbl_segment` is equal to the same label. Prefer form su
 
 ### 5. Local and production env
 
-Add the portal ID and four form GUIDs to `.env.local`, then the same values in Vercel (or the host) and redeploy.
+Local `.env.local` already has `HUBSPOT_PORTAL_ID`, `NEXT_PUBLIC_HUBSPOT_PORTAL_ID`, and the four `HUBSPOT_FORM_*` GUIDs. Add the same values in Vercel (or the host) and redeploy, or production will not write contacts.
 
-Until these are set, paid forms still go to PayPal and show a HubSpot warning; inquiry forms return a configuration error. Email fallback: [info@nobackboard.com](mailto:info@nobackboard.com).
+If a form GUID is missing, paid forms still go to PayPal and show a HubSpot warning; inquiry forms return a configuration error. Email fallback: [info@nobackboard.com](mailto:info@nobackboard.com).
 
 ## PayPal Setup
 
@@ -294,9 +311,9 @@ Paid forms use **PayPal Payment Links** created in a PayPal Business account.
 | Four Session Development Cycle | $1,900 | `NEXT_PUBLIC_PAYPAL_LINK_CLUB_4_SESSION` |
 | Club Team Showcase entry | $360 | `NEXT_PUBLIC_PAYPAL_LINK_SHOWCASE` |
 
-Until a package's link is configured, **Continue to payment** tells the visitor to email [info@nobackboard.com](mailto:info@nobackboard.com).
+All seven links are already in local `.env.local`. Copy them into Vercel for production. Until a package's link is configured, **Continue to payment** tells the visitor to email [info@nobackboard.com](mailto:info@nobackboard.com).
 
-REST order create/capture routes remain in the repo as a fallback. They are not used by the booking forms.
+REST order create/capture routes remain in the repo as a fallback. They are not used by the booking forms. The capture route still sends extra HubSpot fields (`notes`, `payment_status`, `paypal_order_id`, `amount_paid`) that the payment-link checkout does not use.
 
 ## Page Sections
 
