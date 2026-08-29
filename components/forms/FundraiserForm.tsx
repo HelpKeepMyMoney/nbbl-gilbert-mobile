@@ -13,9 +13,9 @@ export default function FundraiserForm() {
     event.preventDefault(); setError(null); setSuccess(null); setSubmitting(true);
     try {
       const response = await fetch("/api/forms/inquiry", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ kind: "fundraiser", fields, hutk: getHubSpotCookie() }) });
-      const data = await response.json() as { success?: boolean; error?: string; hubspot?: "submitted" | "failed" };
-      console.info("[NBBL HubSpot] Fundraiser form result", { hubspot: data.hubspot ?? "failed", httpStatus: response.status });
-      if (data.hubspot === "submitted") console.info("[NBBL HubSpot] Fundraiser form ADDED to HubSpot"); else console.error("[NBBL HubSpot] Fundraiser form NOT added to HubSpot", { error: data.error });
+      const data = await response.json() as { success?: boolean; error?: string; hubspot?: "submitted" | "failed"; hubspotDiagnostic?: { status: number; responseBody: string; contentType?: string } };
+      console.info("[NBBL HubSpot] Fundraiser form result", { hubspot: data.hubspot ?? "failed", httpStatus: response.status, hubspotDiagnostic: data.hubspotDiagnostic });
+      if (data.hubspot === "submitted") console.info("[NBBL HubSpot] Fundraiser form ADDED to HubSpot", data.hubspotDiagnostic); else console.error("[NBBL HubSpot] Fundraiser form NOT added to HubSpot", { error: data.error, hubspotDiagnostic: data.hubspotDiagnostic });
       if (!response.ok || !data.success) throw new Error(data.error ?? "Unable to submit your request.");
       setSuccess("Inquiry received. Our team will follow up about your fundraiser event."); setFields(emptyFields);
     } catch (submitError) { console.error("[NBBL HubSpot] Fundraiser form request failed", submitError); setError(submitError instanceof Error ? submitError.message : "Unable to submit your request."); }
