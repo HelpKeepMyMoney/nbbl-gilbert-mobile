@@ -52,8 +52,18 @@ export async function submitToHubSpot(
   const formGuid = getFormGuid(kind);
 
   if (!portalId || !formGuid) {
+    console.error("[NBBL HubSpot] Submission FAILED: HubSpot is not configured", {
+      kind,
+      hasPortalId: Boolean(portalId),
+      hasFormGuid: Boolean(formGuid),
+    });
     throw new Error("HubSpot is not configured");
   }
+
+  console.info("[NBBL HubSpot] Submitting form", {
+    kind,
+    fieldNames: fields.map((field) => field.name),
+  });
 
   const body: Record<string, unknown> = { fields };
 
@@ -75,10 +85,21 @@ export async function submitToHubSpot(
     },
   );
 
+  const responseText = await response.text();
+
   if (!response.ok) {
-    const error = await response.text();
-    throw new Error(`HubSpot submission failed: ${error}`);
+    console.error("[NBBL HubSpot] Submission FAILED", {
+      kind,
+      status: response.status,
+      response: responseText,
+    });
+    throw new Error(`HubSpot submission failed (${response.status}): ${responseText}`);
   }
+
+  console.info("[NBBL HubSpot] Submission SUCCEEDED", {
+    kind,
+    status: response.status,
+  });
 }
 
 export function toHubSpotFields(
