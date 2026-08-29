@@ -43,11 +43,17 @@ export function isHubSpotConfigured(kind: FormKind): boolean {
   );
 }
 
+export type HubSpotSubmissionResult = {
+  status: number;
+  responseBody: string;
+  contentType?: string;
+};
+
 export async function submitToHubSpot(
   kind: FormKind,
   fields: HubSpotField[],
   options?: { hutk?: string; pageUri?: string; pageName?: string },
-): Promise<void> {
+): Promise<HubSpotSubmissionResult> {
   const portalId = process.env.HUBSPOT_PORTAL_ID;
   const formGuid = getFormGuid(kind);
 
@@ -75,31 +81,37 @@ export async function submitToHubSpot(
     };
   }
 
-  const response = await fetch(
-    `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-      cache: "no-store",
-    },
-  );
+  const endpoint = `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`;
+
+  const response = await fetch(endpoint, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+    cache: "no-store",
+  });
 
   const responseText = await response.text();
+  const contentType = response.headers.get("content-type") ?? undefined;
+
+  const diagnostics = {
+    kind,
+    status: response.status,
+    contentType,
+    response: responseText,
+  };
 
   if (!response.ok) {
-    console.error("[NBBL HubSpot] Submission FAILED", {
-      kind,
-      status: response.status,
-      response: responseText,
-    });
+    console.error("[NBBL HubSpot] Submission FAILED", diagnostics);
     throw new Error(`HubSpot submission failed (${response.status}): ${responseText}`);
   }
 
-  console.info("[NBBL HubSpot] Submission SUCCEEDED", {
-    kind,
+  console.info("[NBBL HubSpot] Submission SUCCEEDED", diagnostics);
+
+  return {
     status: response.status,
-  });
+    responseBody: responseText,
+    contentType,
+  };
 }
 
 export function toHubSpotFields(
