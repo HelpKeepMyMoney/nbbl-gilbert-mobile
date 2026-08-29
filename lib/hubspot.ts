@@ -18,29 +18,18 @@ export function getNbblSegment(kind: FormKind): string {
 
 function getFormGuid(kind: FormKind): string | undefined {
   switch (kind) {
-    case "session":
-      return process.env.HUBSPOT_FORM_SESSIONS;
-    case "showcase":
-      return process.env.HUBSPOT_FORM_SHOWCASE;
-    case "creator":
-      return process.env.HUBSPOT_FORM_CREATOR;
-    case "fundraiser":
-      return process.env.HUBSPOT_FORM_FUNDRAISER;
-    default:
-      return undefined;
+    case "session": return process.env.HUBSPOT_FORM_SESSIONS;
+    case "showcase": return process.env.HUBSPOT_FORM_SHOWCASE;
+    case "creator": return process.env.HUBSPOT_FORM_CREATOR;
+    case "fundraiser": return process.env.HUBSPOT_FORM_FUNDRAISER;
+    default: return undefined;
   }
 }
 
 export function isHubSpotConfigured(kind: FormKind): boolean {
   const portalId = process.env.HUBSPOT_PORTAL_ID;
   const formGuid = getFormGuid(kind);
-
-  return Boolean(
-    portalId &&
-      formGuid &&
-      !portalId.startsWith("YOUR_") &&
-      !formGuid.startsWith("YOUR_"),
-  );
+  return Boolean(portalId && formGuid && !portalId.startsWith("YOUR_") && !formGuid.startsWith("YOUR_"));
 }
 
 export type HubSpotSubmissionResult = {
@@ -68,11 +57,12 @@ export async function submitToHubSpot(
 
   console.info("[NBBL HubSpot] Submitting form", {
     kind,
+    portalId,
+    formGuid,
     fieldNames: fields.map((field) => field.name),
   });
 
   const body: Record<string, unknown> = { fields };
-
   if (options?.hutk || options?.pageUri || options?.pageName) {
     body.context = {
       ...(options.hutk ? { hutk: options.hutk } : {}),
@@ -82,7 +72,6 @@ export async function submitToHubSpot(
   }
 
   const endpoint = `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`;
-
   const response = await fetch(endpoint, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -92,13 +81,7 @@ export async function submitToHubSpot(
 
   const responseText = await response.text();
   const contentType = response.headers.get("content-type") ?? undefined;
-
-  const diagnostics = {
-    kind,
-    status: response.status,
-    contentType,
-    response: responseText,
-  };
+  const diagnostics = { kind, portalId, formGuid, status: response.status, contentType, response: responseText };
 
   if (!response.ok) {
     console.error("[NBBL HubSpot] Submission FAILED", diagnostics);
@@ -106,12 +89,7 @@ export async function submitToHubSpot(
   }
 
   console.info("[NBBL HubSpot] Submission SUCCEEDED", diagnostics);
-
-  return {
-    status: response.status,
-    responseBody: responseText,
-    contentType,
-  };
+  return { status: response.status, responseBody: responseText, contentType };
 }
 
 export function toHubSpotFields(
