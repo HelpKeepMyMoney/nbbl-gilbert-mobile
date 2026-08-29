@@ -167,7 +167,6 @@ async function submitPaidLead({
       kind === "session" ? getStringField(fields, "organizationType") : "club",
     package: packageName,
     athlete_count: getStringField(fields, "athleteCount"),
-    preferred_start: getOptionalStringField(fields, "preferredStart"),
     preferred_dates: getOptionalStringField(fields, "preferredDates"),
     message: notes,
     nbbl_segment: getNbblSegment(kind),
