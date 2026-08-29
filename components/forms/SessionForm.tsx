@@ -16,7 +16,7 @@ type SessionFields = {
   organizationType: string;
   packageId: string;
   athleteCount: string;
-  preferredStart: string;
+  preferredDates: string;
   notes: string;
 };
 
@@ -28,7 +28,7 @@ const emptyFields: SessionFields = {
   organizationType: "school",
   packageId: SESSION_PACKAGES[0].id,
   athleteCount: "",
-  preferredStart: "",
+  preferredDates: "",
   notes: "",
 };
 
@@ -207,10 +207,10 @@ export default function SessionForm({ initialPackageId }: SessionFormProps) {
           />
         </label>
         <label className="form-field">
-          <span>Preferred start</span>
+          <span>Preferred dates</span>
           <input
-            value={fields.preferredStart}
-            onChange={(event) => updateField("preferredStart", event.target.value)}
+            value={fields.preferredDates}
+            onChange={(event) => updateField("preferredDates", event.target.value)}
             placeholder="e.g. September 2026"
           />
         </label>
