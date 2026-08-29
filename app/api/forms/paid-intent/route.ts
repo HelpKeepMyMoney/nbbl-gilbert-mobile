@@ -43,14 +43,10 @@ export async function POST(request: Request) {
       "organizationType",
       "packageId",
     ]);
-    if (missing) {
-      return NextResponse.json({ error: missing }, { status: 400 });
-    }
+    if (missing) return NextResponse.json({ error: missing }, { status: 400 });
 
     const emailError = validateEmailField(fields);
-    if (emailError) {
-      return NextResponse.json({ error: emailError }, { status: 400 });
-    }
+    if (emailError) return NextResponse.json({ error: emailError }, { status: 400 });
 
     const packageId = getStringField(fields, "packageId") || body.packageId || "";
     const sessionPackage = getSessionPackage(packageId);
@@ -61,15 +57,12 @@ export async function POST(request: Request) {
     const paymentUrl = getPayPalPaymentLink(sessionPackage.id);
     if (!paymentUrl) {
       return NextResponse.json(
-        {
-          error:
-            "PayPal payment link is not configured for this package. Email info@nobackboard.com to complete your request.",
-        },
+        { error: "PayPal payment link is not configured for this package. Email info@nobackboard.com to complete your request." },
         { status: 503 },
       );
     }
 
-    const hubspotWarning = await submitPaidLead({
+    const hubspotResult = await submitPaidLead({
       kind: "session",
       fields,
       packageName: sessionPackage.name,
@@ -81,7 +74,8 @@ export async function POST(request: Request) {
       paymentUrl,
       label: sessionPackage.name,
       amount: formatPriceDecimal(sessionPackage.priceCents),
-      warning: hubspotWarning,
+      warning: hubspotResult.warning,
+      hubspot: hubspotResult.status,
     });
   }
 
@@ -93,35 +87,25 @@ export async function POST(request: Request) {
       "phone",
       "athleteCount",
     ]);
-    if (missing) {
-      return NextResponse.json({ error: missing }, { status: 400 });
-    }
+    if (missing) return NextResponse.json({ error: missing }, { status: 400 });
 
     const emailError = validateEmailField(fields);
-    if (emailError) {
-      return NextResponse.json({ error: emailError }, { status: 400 });
-    }
+    if (emailError) return NextResponse.json({ error: emailError }, { status: 400 });
 
     const athleteCount = Number(getStringField(fields, "athleteCount"));
     if (!Number.isFinite(athleteCount) || athleteCount < 1 || athleteCount > 8) {
-      return NextResponse.json(
-        { error: "Athlete count must be between 1 and 8" },
-        { status: 400 },
-      );
+      return NextResponse.json({ error: "Athlete count must be between 1 and 8" }, { status: 400 });
     }
 
     const paymentUrl = getPayPalPaymentLink(SHOWCASE_PRODUCT.id);
     if (!paymentUrl) {
       return NextResponse.json(
-        {
-          error:
-            "PayPal payment link is not configured for showcase entry. Email info@nobackboard.com to complete your request.",
-        },
+        { error: "PayPal payment link is not configured for showcase entry. Email info@nobackboard.com to complete your request." },
         { status: 503 },
       );
     }
 
-    const hubspotWarning = await submitPaidLead({
+    const hubspotResult = await submitPaidLead({
       kind: "showcase",
       fields,
       packageName: SHOWCASE_PRODUCT.name,
@@ -133,7 +117,8 @@ export async function POST(request: Request) {
       paymentUrl,
       label: SHOWCASE_PRODUCT.name,
       amount: formatPriceDecimal(SHOWCASE_PRODUCT.priceCents),
-      warning: hubspotWarning,
+      warning: hubspotResult.warning,
+      hubspot: hubspotResult.status,
     });
   }
 
@@ -152,7 +137,7 @@ async function submitPaidLead({
   packageName: string;
   hutk?: string;
   pageUri?: string;
-}): Promise<string | undefined> {
+}): Promise<{ status: "submitted" | "failed"; warning?: string }> {
   const notes = getOptionalStringField(fields, "notes");
 
   const hubspotFields = toHubSpotFields({
@@ -160,11 +145,8 @@ async function submitPaidLead({
     email: getStringField(fields, "email"),
     phone: getStringField(fields, "phone"),
     program_name:
-      kind === "session"
-        ? getStringField(fields, "programName")
-        : getStringField(fields, "clubName"),
-    organization_type:
-      kind === "session" ? getStringField(fields, "organizationType") : "club",
+      kind === "session" ? getStringField(fields, "programName") : getStringField(fields, "clubName"),
+    organization_type: kind === "session" ? getStringField(fields, "organizationType") : "club",
     package: packageName,
     athlete_count: getStringField(fields, "athleteCount"),
     preferred_dates: getOptionalStringField(fields, "preferredDates"),
@@ -173,7 +155,11 @@ async function submitPaidLead({
   });
 
   if (!isHubSpotConfigured(kind)) {
-    return "Registration will be confirmed from your PayPal receipt. HubSpot is not configured yet.";
+    console.error("[NBBL HubSpot] Paid form not configured", { kind });
+    return {
+      status: "failed",
+      warning: "HubSpot is not configured. The form was not added to HubSpot.",
+    };
   }
 
   try {
@@ -182,9 +168,12 @@ async function submitPaidLead({
       pageUri,
       pageName: "NBBL Gilbert",
     });
-    return undefined;
+    return { status: "submitted" };
   } catch (error) {
-    console.error("HubSpot submission before PayPal redirect failed:", error);
-    return "We could not save your registration automatically. Please complete PayPal checkout so our team can follow up from your receipt.";
+    console.error("[NBBL HubSpot] Paid submission failed", error);
+    return {
+      status: "failed",
+      warning: "We could not save your registration in HubSpot. Please do not assume your registration was recorded.",
+    };
   }
 }
