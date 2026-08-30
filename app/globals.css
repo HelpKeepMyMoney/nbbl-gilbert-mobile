@@ -831,6 +831,18 @@ header::before {
   margin-bottom: 22px;
 }
 
+.offer-price-was {
+  display: inline-block;
+  margin-right: 0.18em;
+  font-size: 0.42em;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--muted);
+  text-decoration: line-through;
+  text-decoration-thickness: 0.08em;
+  vertical-align: 0.28em;
+}
+
 .offer-toggle {
   margin-top: 32px;
   background: none;

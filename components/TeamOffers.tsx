@@ -13,13 +13,15 @@ export default function TeamOffers() {
     <div className="team-offers">
       <article className="offer-featured">
         <div className="offer-kicker">Recommended starting point</div>
-        <h3 className="display">Four Session Development Evaluation</h3>
+        <h3 className="display">FIRST-TIME DISCOUNT: $200</h3>
         <ul>
-          <li>4 two-hour sessions</li>
+          <li>4 two-hour sessions for development evaluation</li>
           <li>Up to 18 athletes</li>
           <li>Performance tracking included</li>
         </ul>
         <div className="offer-price">
+          <s className="offer-price-was">$1,900</s>
+          {" "}
           $1,700
         </div>
         <a className="btn primary" href={bookHref("school-eval")}>
