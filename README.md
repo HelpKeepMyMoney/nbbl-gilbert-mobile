@@ -13,9 +13,9 @@ A mobile-first marketing site with on-page forms for:
 - **Creator access** — HubSpot inquiry only
 - **Fundraiser inquiry** — HubSpot inquiry only
 
-**Production domain:** [nobackboardbasketballgym.com](https://nobackboardbasketballgym.com)
+**Official site:** [nobackboardbasketballgym.com](https://nobackboardbasketballgym.com)
 
-Until the custom domain is connected, the preview is [nbbl-gilbert-mobile.vercel.app](https://nbbl-gilbert-mobile.vercel.app).
+Vercel production URL: [nbblgilbertdemo.vercel.app](https://nbblgilbertdemo.vercel.app)
 
 The site is designed as a sports magazine / performance brand / basketball media property, not a generic gym, SaaS, or corporate template.
 
@@ -297,7 +297,7 @@ Paid forms use **PayPal Payment Links** created in a PayPal Business account.
 1. Log in at [paypal.com](https://www.paypal.com) with the NBBL Business account.
 2. Open **Pay & Get Paid → Payment Links and Buttons** (or [Create Payment Links and Buttons](https://www.paypal.com/buttons/)).
 3. Create one reusable **Buy Now** link for each catalog product below. Use a **fixed price**, USD, no shipping, no tax.
-4. In the **Confirmation** tab, turn on **Auto-return** and set the return URL to `https://nobackboardbasketballgym.com/thanks` (or the live Vercel URL plus `/thanks` until the custom domain is live).
+4. In the **Confirmation** tab, turn on **Auto-return** and set the return URL to `https://nobackboardbasketballgym.com/thanks`.
 5. Copy each shareable link (usually `https://www.paypal.com/ncp/payment/...`) into the matching `NEXT_PUBLIC_PAYPAL_LINK_*` environment variable.
 6. Set the same variables in Vercel (or your host), then redeploy.
 
@@ -375,14 +375,27 @@ public/assets/
 
 ## Deployment
 
-Deploy to Vercel or any Node host that supports Next.js:
+The live Vercel project is **nbbl_gilbert_demo**. `nobackboardbasketballgym.com` and `www.nobackboardbasketballgym.com` are already attached there.
+
+The domain is registered at **IONOS**. Until DNS is updated, the IONOS parking page still answers. In IONOS: **Domains → nobackboardbasketballgym.com → DNS**.
+
+Replace IONOS parking records with:
+
+| Type | Host | Value |
+|------|------|-------|
+| A | `@` | `76.76.21.21` |
+| A | `www` | `76.76.21.21` |
+
+Remove the existing A/AAAA records that point at IONOS (currently `74.208.236.198` and `2607:f1c0:100f:f000::200`). Do not change IONOS nameservers unless you want Vercel to manage DNS instead (`ns1.vercel-dns.com` and `ns2.vercel-dns.com`).
+
+After DNS propagates, `https://nobackboardbasketballgym.com` serves this site. The Vercel fallback remains [nbblgilbertdemo.vercel.app](https://nbblgilbertdemo.vercel.app).
 
 ```bash
 npm run build
 npm run start
 ```
 
-Set the same environment variables in your hosting provider.
+Set the same environment variables in Vercel.
 
 ## Contact
 
