@@ -27,6 +27,15 @@ export default function Footer() {
             </a>
           </div>
           <div className="footer-small footer-copy">
+            <a
+              href="/assets/NBBL%20Concussion%20Awareness%20and%20Return%20to%20Play%20Policy.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Concussion Awareness and Return to Play Policy
+            </a>
+          </div>
+          <div className="footer-small footer-copy">
             © 2026 No Backboard Basketball League
           </div>
           <div className="footer-small footer-copy">

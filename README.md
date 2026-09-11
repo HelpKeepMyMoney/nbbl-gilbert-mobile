@@ -86,6 +86,15 @@ Visual and UX updates:
 
 Site-wide contact email is [info@nobackboard.com](mailto:info@nobackboard.com), including footer, form fallback, PayPal notices, and HubSpot error copy.
 
+### Footer legal documents
+
+The footer links to public PDFs in `public/assets/`. Both open in a new tab.
+
+| Link | File |
+|------|------|
+| Privacy Policy | `NBBL Privacy Policy.pdf` |
+| Concussion Awareness and Return to Play Policy | `NBBL Concussion Awareness and Return to Play Policy.pdf` |
+
 ### Next.js migration (from static HTML)
 
 The site was rebuilt from a single `index.html` static page into a Next.js App Router application:
@@ -371,6 +380,8 @@ lib/
   hubspot.ts
   validation.ts
 public/assets/
+  NBBL Privacy Policy.pdf
+  NBBL Concussion Awareness and Return to Play Policy.pdf
 ```
 
 ## Deployment
