@@ -13,6 +13,8 @@ A mobile-first marketing site with on-page forms for:
 - **Creator access** — HubSpot inquiry only
 - **Fundraiser inquiry** — HubSpot inquiry only
 
+Parents and guardians sign minor-athlete waivers on **`/waivers`** through SmartWaiver.
+
 **Official site:** [nobackboardbasketballgym.com](https://nobackboardbasketballgym.com)
 
 Vercel production URL: [nbblgilbertdemo.vercel.app](https://nbblgilbertdemo.vercel.app)
@@ -86,12 +88,26 @@ Visual and UX updates:
 
 Site-wide contact email is [info@nobackboard.com](mailto:info@nobackboard.com), including footer, form fallback, PayPal notices, and HubSpot error copy.
 
+### Waivers (SmartWaiver)
+
+Parents and guardians sign minor-athlete forms on **`/waivers`** (`app/waivers/page.tsx`). Form IDs and the widget script live in `lib/waivers.ts`. The page is in the header, footer, and `app/sitemap.ts`.
+
+The SmartWaiver Waiver Index widget (`splashpage-195553`) loads only on `/waivers`. The floating bar uses site primary red (`#f21d2f`) and white text. Each form also has a **Sign** fallback that opens the hosted SmartWaiver page in a new tab.
+
+| Waiver | Template ID | Hosted URL |
+|--------|-------------|------------|
+| Consent for Minor Athlete Participation | `qqjwuvczszqltachbpia2` | `https://waiver.smartwaiver.com/w/qqjwuvczszqltachbpia2/web/` |
+| Minor Athlete Media, Likeness & Content Release | `ctpkadpmynwsfthiyjtgii` | `https://waiver.smartwaiver.com/w/ctpkadpmynwsfthiyjtgii/web/` |
+
+To add another form, append it to `WAIVER_FORMS` in `lib/waivers.ts`. The index widget already lists every waiver on splash page `195553`.
+
 ### Footer legal documents
 
-The footer links to public PDFs in `public/assets/`. Both open in a new tab.
+The footer links to **Waivers** (`/waivers`) and to public PDFs in `public/assets/`. PDFs open in a new tab.
 
-| Link | File |
-|------|------|
+| Link | Target |
+|------|--------|
+| Waivers | `/waivers` |
 | Privacy Policy | `NBBL Privacy Policy.pdf` |
 | Concussion Awareness and Return to Play Policy | `NBBL Concussion Awareness and Return to Play Policy.pdf` |
 
@@ -134,6 +150,7 @@ The main menu links to on-page sections:
 | The Gym | `/#gym` |
 | Creators | `/#creators` |
 | About | `/#why` |
+| Waivers | `/waivers` |
 
 The header primary action is **Book Your Team →** and routes to `/#book`. The sticky mobile bar is **Train Your Team →** and also routes to `/#book`. The sticky bar hides on the hero and over the form hub.
 
@@ -159,6 +176,7 @@ Showcase economics: **20% NBBL / 20% Club 1 / 20% Club 2 / 20% Club 3 / 20% Club
 - Next.js (App Router) + TypeScript + React
 - PayPal Payment Links (REST create/capture remains as unused fallback)
 - HubSpot Forms API (server-side submission, one form per segment)
+- SmartWaiver Waiver Index widget on `/waivers`
 - Google Fonts (Barlow Condensed, Inter)
 - Static assets in `public/assets/`
 
@@ -355,7 +373,9 @@ app/
   layout.tsx
   page.tsx
   globals.css
+  sitemap.ts
   thanks/page.tsx
+  waivers/page.tsx
   api/forms/inquiry/route.ts
   api/forms/paid-intent/route.ts
   api/paypal/create-order/route.ts
@@ -376,6 +396,7 @@ components/
     PayPalCheckout.tsx
 lib/
   catalog.ts
+  waivers.ts
   paypal.ts
   hubspot.ts
   validation.ts

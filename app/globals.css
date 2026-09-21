@@ -1472,6 +1472,51 @@ footer {
   text-decoration: underline;
 }
 
+.waivers-page {
+  min-height: 70vh;
+  padding: 140px 0 160px;
+}
+
+.waivers-page .lead {
+  max-width: 36rem;
+}
+
+.waivers-page .form-note a {
+  color: var(--yellow);
+  text-decoration: underline;
+}
+
+.waiver-list {
+  display: grid;
+  gap: 16px;
+  max-width: 40rem;
+  margin: 36px 0 28px;
+  padding: 0;
+  list-style: none;
+}
+
+.waiver-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 22px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+
+.waiver-card h2 {
+  margin: 0;
+  flex: 1 1 14rem;
+  font-family: var(--font-display), sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.15;
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(22px);
