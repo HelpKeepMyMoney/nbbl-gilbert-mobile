@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import { SMARTWAIVER_WIDGET_SRC, WAIVER_FORMS } from "@/lib/waivers";
+import SmartWaiverWidget from "@/components/SmartWaiverWidget";
+import { WAIVER_FORMS } from "@/lib/waivers";
 
 export const metadata: Metadata = {
   title: "Waivers",
@@ -48,11 +48,7 @@ export default function WaiversPage() {
         </div>
       </main>
       <Footer />
-      <Script
-        id="smartwaiver-widget"
-        src={SMARTWAIVER_WIDGET_SRC}
-        strategy="afterInteractive"
-      />
+      <SmartWaiverWidget />
     </>
   );
 }
