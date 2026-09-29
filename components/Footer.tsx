@@ -18,6 +18,9 @@ export default function Footer() {
             <Link href="/#why">About NBBL</Link>
           </div>
           <div className="footer-small footer-copy">
+            <Link href="/waivers">Waivers</Link>
+          </div>
+          <div className="footer-small footer-copy">
             <a
               href="/assets/NBBL%20Privacy%20Policy.pdf"
               target="_blank"

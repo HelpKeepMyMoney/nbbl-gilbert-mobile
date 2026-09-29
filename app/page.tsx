@@ -6,6 +6,7 @@ import FormHub from "@/components/FormHub";
 import Header from "@/components/Header";
 import Reveal from "@/components/Reveal";
 import StickyCta from "@/components/StickyCta";
+import SmartWaiverWidget from "@/components/SmartWaiverWidget";
 import TeamOffers from "@/components/TeamOffers";
 
 export const metadata: Metadata = {
@@ -792,6 +793,7 @@ export default function HomePage() {
       <Footer />
 
       <StickyCta />
+      <SmartWaiverWidget />
     </>
   );
 }

@@ -12,6 +12,7 @@ const LINKS: Array<{ href: string; label: string; external?: boolean }> = [
   { href: "/#gym", label: "The Gym" },
   { href: "/#creators", label: "Creators" },
   { href: "/#why", label: "About" },
+  { href: "/waivers", label: "Waivers" },
 ];
 
 export default function Header() {
