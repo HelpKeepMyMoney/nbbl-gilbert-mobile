@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { trackEvent } from "@/lib/analytics";
 import { SHOWCASE_PRODUCT } from "@/lib/catalog";
 import PayPalCheckout from "./PayPalCheckout";
 
@@ -22,6 +23,7 @@ export default function ShowcaseForm() {
       console.info("[NBBL HubSpot] Showcase form result", { hubspot: data.hubspot ?? "failed", httpStatus: response.status, hubspotDiagnostic: data.hubspotDiagnostic });
       if (data.hubspot === "submitted") console.info("[NBBL HubSpot] Showcase form ADDED to HubSpot", data.hubspotDiagnostic); else console.error("[NBBL HubSpot] Showcase form NOT added to HubSpot", { warning: data.warning, error: data.error, hubspotDiagnostic: data.hubspotDiagnostic });
       if (!response.ok || !data.paymentUrl) throw new Error(data.error ?? "Unable to continue to payment.");
+      trackEvent("showcase_register_submit");
       setPaymentUrl(data.paymentUrl); setPaymentWarning(data.warning); setShowPayment(true);
     } catch (submitError) { console.error("[NBBL HubSpot] Showcase form request failed", submitError); setError(submitError instanceof Error ? submitError.message : "Unable to continue to payment."); }
     finally { setSubmitting(false); }

@@ -1,5 +1,6 @@
 "use client";
 
+import { trackEvent } from "@/lib/analytics";
 import { FormEvent, useState } from "react";
 
 type CreatorFields = { name: string; email: string; phone: string; organization: string; contentType: string; projectDescription: string; preferredDates: string };
@@ -17,6 +18,7 @@ export default function CreatorForm() {
       console.info("[NBBL HubSpot] Creator form result", { hubspot: data.hubspot ?? "failed", httpStatus: response.status, hubspotDiagnostic: data.hubspotDiagnostic });
       if (data.hubspot === "submitted") console.info("[NBBL HubSpot] Creator form ADDED to HubSpot", data.hubspotDiagnostic); else console.error("[NBBL HubSpot] Creator form NOT added to HubSpot", { error: data.error, hubspotDiagnostic: data.hubspotDiagnostic });
       if (!response.ok || !data.success) throw new Error(data.error ?? "Unable to submit your request.");
+      trackEvent("contact_submit", { form: "creator" });
       setSuccess("Request received. Our team will follow up about creator access shortly."); setFields(emptyFields);
     } catch (submitError) { console.error("[NBBL HubSpot] Creator form request failed", submitError); setError(submitError instanceof Error ? submitError.message : "Unable to submit your request."); }
     finally { setSubmitting(false); }
