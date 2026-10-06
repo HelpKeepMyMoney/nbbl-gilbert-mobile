@@ -23,6 +23,12 @@ The site is designed as a sports magazine / performance brand / basketball media
 
 ## Recent Changes
 
+### Vercel Web Analytics
+
+Page views are collected with `@vercel/analytics`. The root layout (`app/layout.tsx`) renders `<Analytics />` from `@vercel/analytics/next`, so every route is tracked.
+
+Web Analytics must be enabled on the Vercel project. Counts appear after the next production deploy. Local `npm run dev` loads the debug script and does not write visits to the dashboard.
+
 ### HubSpot connection and segments
 
 The site is connected to NBBL’s HubSpot portal (`247117755`). Each website form posts to its own HubSpot form GUID so contacts land in named segments:
@@ -174,6 +180,7 @@ Showcase economics: **20% NBBL / 20% Club 1 / 20% Club 2 / 20% Club 3 / 20% Club
 ## Tech Stack
 
 - Next.js (App Router) + TypeScript + React
+- Vercel Web Analytics (`@vercel/analytics`)
 - PayPal Payment Links (REST create/capture remains as unused fallback)
 - HubSpot Forms API (server-side submission, one form per segment)
 - SmartWaiver Waiver Index widget on `/waivers`
