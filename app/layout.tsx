@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Barlow_Condensed, Inter } from "next/font/google";
 import Script from "next/script";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Analytics } from "@vercel/analytics/next";
+import AnalyticsClickListener from "@/components/AnalyticsClickListener";
 import "./globals.css";
 
 const inter = Inter({
@@ -70,10 +72,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const hubspotPortalId = process.env.NEXT_PUBLIC_HUBSPOT_PORTAL_ID;
+  const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim();
 
   return (
     <html lang="en" className={`${inter.variable} ${barlowCondensed.variable}`}>
       <body className={inter.className}>
+        <AnalyticsClickListener />
         {children}
         {hubspotPortalId && !hubspotPortalId.startsWith("YOUR_") ? (
           <Script
@@ -83,6 +87,7 @@ export default function RootLayout({
           />
         ) : null}
         <Analytics />
+        {gaMeasurementId ? <GoogleAnalytics gaId={gaMeasurementId} /> : null}
       </body>
     </html>
   );

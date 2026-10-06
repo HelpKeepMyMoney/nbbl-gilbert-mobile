@@ -1,5 +1,6 @@
 "use client";
 
+import { trackEvent } from "@/lib/analytics";
 import { FormEvent, useState } from "react";
 
 type FundraiserFields = { organizationName: string; contactName: string; email: string; phone: string; expectedClubs: string; preferredDates: string; referralSource: string; notes: string };
@@ -17,6 +18,7 @@ export default function FundraiserForm() {
       console.info("[NBBL HubSpot] Fundraiser form result", { hubspot: data.hubspot ?? "failed", httpStatus: response.status, hubspotDiagnostic: data.hubspotDiagnostic });
       if (data.hubspot === "submitted") console.info("[NBBL HubSpot] Fundraiser form ADDED to HubSpot", data.hubspotDiagnostic); else console.error("[NBBL HubSpot] Fundraiser form NOT added to HubSpot", { error: data.error, hubspotDiagnostic: data.hubspotDiagnostic });
       if (!response.ok || !data.success) throw new Error(data.error ?? "Unable to submit your request.");
+      trackEvent("contact_submit", { form: "fundraiser" });
       setSuccess("Inquiry received. Our team will follow up about your fundraiser event."); setFields(emptyFields);
     } catch (submitError) { console.error("[NBBL HubSpot] Fundraiser form request failed", submitError); setError(submitError instanceof Error ? submitError.message : "Unable to submit your request."); }
     finally { setSubmitting(false); }

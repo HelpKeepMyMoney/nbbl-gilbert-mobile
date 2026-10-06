@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
+import { trackEvent } from "@/lib/analytics";
 import { SESSION_PACKAGES } from "@/lib/catalog";
 import PayPalCheckout from "./PayPalCheckout";
 
@@ -25,6 +26,7 @@ export default function SessionForm({ initialPackageId }: SessionFormProps) {
       console.info("[NBBL HubSpot] Session form result", { hubspot: data.hubspot ?? "failed", httpStatus: response.status, hubspotDiagnostic: data.hubspotDiagnostic });
       if (data.hubspot === "submitted") console.info("[NBBL HubSpot] Session form ADDED to HubSpot", data.hubspotDiagnostic); else console.error("[NBBL HubSpot] Session form NOT added to HubSpot", { warning: data.warning, error: data.error, hubspotDiagnostic: data.hubspotDiagnostic });
       if (!response.ok || !data.paymentUrl) throw new Error(data.error ?? "Unable to continue to payment.");
+      trackEvent("book_submit", { package: fields.packageId });
       setPaymentUrl(data.paymentUrl); setPaymentWarning(data.warning); setShowPayment(true);
     } catch (submitError) { console.error("[NBBL HubSpot] Session form request failed", submitError); setError(submitError instanceof Error ? submitError.message : "Unable to continue to payment."); }
     finally { setSubmitting(false); }
