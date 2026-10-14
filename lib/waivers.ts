@@ -15,6 +15,11 @@ export const WAIVER_FORMS: WaiverForm[] = [
     title: "Minor Athlete Media, Likeness & Content Release",
     href: "https://waiver.smartwaiver.com/w/ctpkadpmynwsfthiyjtgii/web/",
   },
+  {
+    id: "tgthxmmfknnqqbshaqgkfz",
+    title: "Participating Coach / Parent Liability Waiver",
+    href: "https://waiver.smartwaiver.com/w/tgthxmmfknnqqbshaqgkfz/web/",
+  },
 ];
 
 export const SMARTWAIVER_WIDGET_SRC =

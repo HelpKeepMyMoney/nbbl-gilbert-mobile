@@ -13,7 +13,7 @@ A mobile-first marketing site with on-page forms for:
 - **Creator access** — HubSpot inquiry only
 - **Fundraiser inquiry** — HubSpot inquiry only
 
-Parents and guardians sign minor-athlete waivers on **`/waivers`** through SmartWaiver.
+Parents, guardians, and participating coaches sign waivers on **`/waivers`** through SmartWaiver.
 
 **Official site:** [nobackboardbasketballgym.com](https://nobackboardbasketballgym.com)
 
@@ -96,14 +96,15 @@ Site-wide contact email is [info@nobackboard.com](mailto:info@nobackboard.com), 
 
 ### Waivers (SmartWaiver)
 
-Parents and guardians sign minor-athlete forms on **`/waivers`** (`app/waivers/page.tsx`). Form IDs and the widget script live in `lib/waivers.ts`. The page is in the header, footer, and `app/sitemap.ts`.
+Parents and guardians sign minor-athlete forms on **`/waivers`** (`app/waivers/page.tsx`). Coaches, trainers, and parents who enter the court sign the participating adult waiver on the same page. Form IDs and the widget script live in `lib/waivers.ts`. The page is in the header, footer, and `app/sitemap.ts`.
 
-The SmartWaiver Waiver Index widget (`splashpage-195553`) loads only on `/waivers`. The floating bar uses site primary red (`#f21d2f`) and white text. Each form also has a **Sign** fallback that opens the hosted SmartWaiver page in a new tab.
+The SmartWaiver Waiver Index widget (`splashpage-195553`) loads on the homepage and **`/waivers`**. The floating bar uses site primary red (`#f21d2f`) and white text. Each form also has a **Sign** link that opens the hosted SmartWaiver page in a new tab.
 
 | Waiver | Template ID | Hosted URL |
 |--------|-------------|------------|
 | Consent for Minor Athlete Participation | `qqjwuvczszqltachbpia2` | `https://waiver.smartwaiver.com/w/qqjwuvczszqltachbpia2/web/` |
 | Minor Athlete Media, Likeness & Content Release | `ctpkadpmynwsfthiyjtgii` | `https://waiver.smartwaiver.com/w/ctpkadpmynwsfthiyjtgii/web/` |
+| Participating Coach / Parent Liability Waiver | `tgthxmmfknnqqbshaqgkfz` | `https://waiver.smartwaiver.com/w/tgthxmmfknnqqbshaqgkfz/web/` |
 
 To add another form, append it to `WAIVER_FORMS` in `lib/waivers.ts`. The index widget already lists every waiver on splash page `195553`.
 
@@ -183,7 +184,7 @@ Showcase economics: **20% NBBL / 20% Club 1 / 20% Club 2 / 20% Club 3 / 20% Club
 - Vercel Web Analytics (`@vercel/analytics`)
 - PayPal Payment Links (REST create/capture remains as unused fallback)
 - HubSpot Forms API (server-side submission, one form per segment)
-- SmartWaiver Waiver Index widget on `/waivers`
+- SmartWaiver Waiver Index widget on the homepage and `/waivers`
 - Google Fonts (Barlow Condensed, Inter)
 - Static assets in `public/assets/`
 

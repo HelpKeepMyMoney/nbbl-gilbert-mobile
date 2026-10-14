@@ -7,7 +7,7 @@ import { WAIVER_FORMS } from "@/lib/waivers";
 export const metadata: Metadata = {
   title: "Waivers",
   description:
-    "Parents and guardians: sign NBBL Gilbert waivers for minor athletes before they train, compete, or appear on NBBL content.",
+    "Sign NBBL Gilbert waivers for minor athletes and for coaches or parents who enter active athletic areas.",
 };
 
 export default function WaiversPage() {
@@ -19,8 +19,10 @@ export default function WaiversPage() {
           <p className="chapter-kicker">NBBL Gilbert</p>
           <h1 className="display">Waivers.</h1>
           <p className="lead">
-            Parents and guardians must sign these forms before a minor athlete
-            trains, competes, or appears on NBBL Gilbert content.
+            Parents and guardians sign the minor-athlete forms before a player
+            trains, competes, or appears on NBBL Gilbert content. Coaches,
+            trainers, and parents who enter the court sign the participating
+            adult waiver.
           </p>
           <p className="lead">
             Use the Sign waivers bar at the bottom of this page, or open a form
